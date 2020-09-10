@@ -24,11 +24,13 @@
                     <th>狀態</th>
                     <th>金額</th>
                     <th>日期</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($ORDERS as $ORDER)
                     <tr>
+                    @if ($ORDER->status != '刪除訂單')
                     <th scope="row"><a href="/admin/order-history/{{$ORDER->id}}">ORD{{$ORDER->user_id}}{{$ORDER->id}}</a></th>
                     <td>{{$ORDER->name}}</td>
                     <td><span   <?php 
@@ -42,6 +44,23 @@
                                 style="padding:10px">{{$ORDER->status}}</span></td>
                     <td>{{$ORDER->totalprice}}</td>
                     <td>{{date('Y-m-d', strtotime($ORDER->created_at))}}</td>
+                    <td>
+                        <?php
+                            if ($ORDER->status == '已通知店家')
+                            {
+                                ?>
+                                    <a class="btn btn-primary btn-block" href="#" onclick="cancelOrder({{$ORDER->id}})">取消訂單</a>
+                                <?php
+                            }
+                            else
+                            {
+                                ?>
+                                    <a class="btn btn-danger btn-block" href="#" onclick="deleteOrder({{$ORDER->id}})">刪除訂單</a>
+                                <?php
+                            }                            
+                        ?>
+                    </td>
+                    @endif
                     </tr>
                 @endforeach
                 </tbody>
@@ -52,5 +71,43 @@
         </div>
     </div>
     <!-- /.content-wrapper -->
+
+    <script type="text/javascript">
+        function cancelOrder(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/admin/order-history/'+id+'/cancel',
+                success:function(res){   
+                    alert('取消成功');             
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 1000);
+                }
+            });
+        };
+
+        function deleteOrder(id) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/admin/order-history/'+id+'/delete',
+                success:function(res){       
+                    alert('刪除成功');         
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 1000);
+                }
+            });
+        };
+    </script>
 
 @endsection

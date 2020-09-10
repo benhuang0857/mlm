@@ -17,6 +17,7 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-12">
+                    <p><span style="color:red">*</span>代表必填</p>
                     <div class="card card-primary">
                         <div class="card-header">
                         <h3 class="card-title">會員資料</h3>
@@ -27,11 +28,9 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">姓名</label>
-
+                                <label for="name" class="col-md-4 control-label">姓名<span style="color:red">*</span></label>
                                 <div class="col-md-12">
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
                                     @if ($errors->has('name'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('name') }}</strong>
@@ -41,10 +40,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('nickname') ? ' has-error' : '' }}">
-                                <label for="nickname" class="col-md-4 control-label">暱稱</label>
+                                <label for="nickname" class="col-md-4 control-label">暱稱<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
-                                    <input id="nickname" type="text" class="form-control" name="nickname" value="{{ old('nickname') }}" autofocus>
+                                    <input id="nickname" type="text" class="form-control" name="nickname" value="{{ old('nickname') }}" required autofocus>
 
                                     @if ($errors->has('nickname'))
                                         <span class="help-block">
@@ -55,10 +54,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail</label>
+                                <label for="email" class="col-md-4 control-label">E-Mail<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -69,7 +68,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                <label for="phone" class="col-md-4 control-label">手機</label>
+                                <label for="phone" class="col-md-4 control-label">手機<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
                                     <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" required autofocus>
@@ -97,7 +96,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                                <label for="address" class="col-md-4 control-label">聯絡地址</label>
+                                <label for="address" class="col-md-4 control-label">聯絡地址<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
                                     <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" required autofocus>
@@ -139,7 +138,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('authorization_code') ? ' has-error' : '' }}">
-                                <label for="authorization_code" class="col-md-4 control-label">授權碼</label>
+                                <label for="authorization_code" class="col-md-4 control-label">授權碼<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
                                 <input id="authorization_code" type="text" class="form-control" name="authorization_code" value="{{str_pad(Auth::user()->id,5,'0',STR_PAD_LEFT)}}" required autofocus>
@@ -148,15 +147,15 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                <label for="avatar">大頭照</label>
-                                <input type="file" class="form-control-file" id="avatar" name="avatar">
+                                <label for="avatar">大頭照<span style="color:red">*</span></label>
+                                <input type="file" class="form-control-file" id="avatar" name="avatar" required>
                                 <img src="" id="avatar_tag" class="img elevation-2" style="max-width:120px" />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                <label for="role">會員身分</label>
+                                <label for="role">會員身分<span style="color:red">*</span></label>
                                 <select class="form-control" id="role" name="role" required>
                                     @if (Auth::user()->role == "一般會員")
                                     <option selected value="一般會員">一般會員</option>
@@ -176,7 +175,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">密碼</label>
+                                <label for="password" class="col-md-4 control-label">密碼<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
                                     <input id="password" type="password" class="form-control" name="password" required>
@@ -191,7 +190,7 @@
 
                             
                             <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">確認密碼</label>
+                                <label for="password-confirm" class="col-md-4 control-label">確認密碼<span style="color:red">*</span></label>
 
                                 <div class="col-md-12">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -201,8 +200,8 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                <label for="leader_id">指派領導</label>
-                                <select class="form-control" id="leader_id" name="leader_id">
+                                <label for="leader_id">指派領導<span style="color:red">*</span></label>
+                                <select class="form-control" id="leader_id" name="leader_id" required>
                                     <?php
                                         use App\Models\User;
                                         $USERS = User::all();

@@ -238,8 +238,6 @@ class AdminController extends Controller
         
         foreach ($users as $user)
         {
-            
-
             if (Auth::user()->role != "一般會員")
             {
                 $tree .= '<li><span><a href="/admin/members/'.$user->id.'" class="tree-name">
@@ -247,7 +245,7 @@ class AdminController extends Controller
                     <img src="/storage/images/avatar/'.$user->image.'" class="img-circle elevation-2" style="width:80px;height:80px" alt="User Image">
                 </div>
                 </a>
-                <p>姓名：'.$user->name.'</p>
+                <p>姓名：'.$user->name.'<br>'.$user->nickname.'</br></p>
                 </span>';
             }
             else
@@ -257,7 +255,8 @@ class AdminController extends Controller
                     <img src="/storage/images/avatar/'.$user->image.'" class="img-circle elevation-2" style="width:80px;height:80px" alt="User Image">
                 </div>
                 </a>
-                <p>姓名：'.$user->name.'</p>
+                <p>姓名：'.$user->name.'<br>'.$user->nickname.'</br></p>
+                
                 </span>';
             }
 
@@ -284,7 +283,7 @@ class AdminController extends Controller
                     <div class="image">
                     <img src="/storage/images/avatar/'.$arr->image.'" class="img-circle elevation-2" style="width:60px;height:60px" alt="User Image">
                     </div>
-                    </a><p>姓名：'.$arr->name.'</p></span>';  
+                    </a><p>姓名：'.$arr->name.'<br>'.$arr->nickname.'</br></p></span>';  
                 }
                 else
                 {
@@ -292,7 +291,7 @@ class AdminController extends Controller
                     <div class="image">
                     <img src="/storage/images/avatar/'.$arr->image.'" class="img-circle elevation-2" style="width:60px;height:60px" alt="User Image">
                     </div>
-                    </a><p>姓名：'.$arr->name.'</p></span>';  
+                    </a><p>姓名：'.$arr->name.'<br>'.$arr->nickname.'</br></p></span>';  
                 }
 
                 $html.= $this->childView($arr);
@@ -305,7 +304,7 @@ class AdminController extends Controller
                     <div class="image">
                     <img src="/storage/images/avatar/'.$arr->image.'" class="img-circle elevation-2" style="width:60px;height:60px" alt="User Image">
                     </div>
-                    </a><p>姓名：'.$arr->name.'</p></span>';   
+                    </a><p>姓名：'.$arr->name.'<br>'.$arr->nickname.'</br></p></span>';   
                 }
                 else
                 {
@@ -313,7 +312,7 @@ class AdminController extends Controller
                     <div class="image">
                     <img src="/storage/images/avatar/'.$arr->image.'" class="img-circle elevation-2" style="width:60px;height:60px" alt="User Image">
                     </div>
-                    </a><p>姓名：'.$arr->name.'</p></span>';   
+                    </a><p>姓名：'.$arr->name.'<br>'.$arr->nickname.'</br></p></span>';   
                 }                   
                 $html .="</li>";
             }             
@@ -330,6 +329,7 @@ class AdminController extends Controller
         $tree = $this->treeView($users);
 
         $data = [
+            'LEADER' => User::where('id', Auth::user()->leader_id)->first(),
             'USER' => Auth::user(),
             'TREE' => $tree
         ];
@@ -502,6 +502,26 @@ class AdminController extends Controller
 
         $order->save();
         return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
+    }
+
+    //取消訂單
+    public function cancelOrders($id)
+    {
+        $order = Order::find($id);
+        $order->status = '取消訂單';
+
+        $order->save();
+        //return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
+    }
+
+    //刪除訂單(其實是隱藏)
+    public function deleteOrders($id)
+    {
+        $order = Order::find($id);
+        $order->status = '刪除訂單';
+
+        $order->save();
+        //return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
     }
 
     //升級

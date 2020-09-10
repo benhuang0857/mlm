@@ -130,7 +130,7 @@
                         <p>個人資料</p>
                         </a>
                     </li>
-                    @if(Auth::user()->role == '管理員' || Auth::user()->role == '最高權限管理員')
+                    @if(Auth::user()->role == '管理員')
                     <li class="nav-item">
                         <a href="/admin/product/index" class="nav-link active">
                         <i class="fa fa-cubes nav-icon"></i>
@@ -138,24 +138,28 @@
                         </a>
                     </li>
                     @endif
+                    @if(Auth::user()->role != '最高權限管理員')
                     <li class="nav-item">
                         <a href="/admin/shop/index" class="nav-link active">
                         <i class="fa fa-gift nav-icon"></i>
                         <p>下單</p>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a href="/admin/order-history-member" class="nav-link active">
                         <i class="fa fa-list nav-icon"></i>
                         <p>我的下線訂單</p>
                         </a>
                     </li>
+                    @if(Auth::user()->role != '最高權限管理員')
                     <li class="nav-item">
                         <a href="/admin/order-history" class="nav-link active">
                         <i class="fa fa-cart-plus nav-icon"></i>
                         <p>我的歷史訂單</p>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a href="/admin/members" class="nav-link active">
                         <i class="fa fa-users nav-icon"></i>
@@ -164,17 +168,17 @@
                     </li>
                     @if(Auth::user()->role == '管理員' || Auth::user()->role == '最高權限管理員')
                     <li class="nav-item">
-                        <a href="/register" class="nav-link active">
-                        <i class="fa fa-address-book nav-icon"></i>
-                        <p>建立直屬下線會員</p>
+                        <a href="/admin/allmembers" class="nav-link active">
+                        <i class="fa fa-users nav-icon"></i>
+                        <p>所有會員</p>
                         </a>
                     </li>
                     @endif
                     @if(Auth::user()->role == '管理員' || Auth::user()->role == '最高權限管理員')
                     <li class="nav-item">
-                        <a href="/admin/allmembers" class="nav-link active">
-                        <i class="fa fa-users nav-icon"></i>
-                        <p>所有會員</p>
+                        <a href="/register" class="nav-link active">
+                        <i class="fa fa-address-book nav-icon"></i>
+                        <p>建立會員</p>
                         </a>
                     </li>
                     @endif

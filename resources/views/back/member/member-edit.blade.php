@@ -19,6 +19,7 @@
         <div class="content">
                 <div class="row">
                     <div class="col-lg-12">
+                        <p><span style="color:red">*</span>代表必填</p>
                         <div class="card card-primary">
                             <div class="card-header">
                             <h3 class="card-title">修改會員資料</h3>
@@ -29,15 +30,15 @@
                                 {{ csrf_field() }}
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="name">會員姓名</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="會員姓名" value="{{$MEM->name}}">
+                                        <label for="name">會員姓名<span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="會員姓名" value="{{$MEM->name}}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="nickname">會員暱稱</label>
-                                        <input type="text" class="form-control" id="nickname" name="nickname" placeholder="會員暱稱" value="{{$MEM->nickname}}">
+                                        <label for="nickname">會員暱稱<span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" id="nickname" name="nickname" placeholder="會員暱稱" value="{{$MEM->nickname}}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="AvatarImage">會員照片</label>
+                                        <label for="AvatarImage">會員照片<span style="color:red">*</span></label>
                                         <div class="input-group">
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" id="AvatarImage" name="AvatarImage">
@@ -47,16 +48,16 @@
                                         <img src="/storage/images/avatar/{{$MEM->image}}" id="AvatarImage_tag" class="img elevation-2" style="max-width:120px" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">會員Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="{{$MEM->email}}">
+                                        <label for="email">會員Email<span style="color:red">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" value="{{$MEM->email}}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="phone">會員電話</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" value="{{$MEM->phone}}">
+                                        <label for="phone">會員電話<span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" id="phone" name="phone" value="{{$MEM->phone}}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="address">會員地址</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="{{$MEM->address}}">
+                                        <label for="address">會員地址<span style="color:red">*</span></label>
+                                        <input type="text" class="form-control" id="address" name="address" value="{{$MEM->address}}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="fb_account">會員臉書帳號</label>
@@ -68,11 +69,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="milage">里程數</label>
-                                        <input type="number" class="form-control" id="milage" name="milage" value="{{$MEM->milage}}">
+                                        <label for="milage">里程數<span style="color:red">*</span></label>
+                                        <input type="number" class="form-control" id="milage" name="milage" value="{{$MEM->milage}}" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="role">會員身分</label>
+                                        <label for="role">會員身分<span style="color:red">*</span></label>
                                         <select class="form-control" id="role" name="role" required>
                                             @if ($MEM->role == "一般會員")
                                             <option selected value="一般會員">一般會員</option>
@@ -91,18 +92,20 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="password">會員新密碼</label>
+                                        <label for="password">會員新密碼(不填則照舊)</label>
                                         <input id="password" type="password" class="form-control" name="password">
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="leader_id">指派領導</label>
-                                        <select class="form-control" id="leader_id" name="leader_id">
-                                            @foreach ($LEADERS as $LEADER)
-                                            <option <?php if($MEM->leader_id == $LEADER->id) echo "selected"?> value="{{$LEADER->id}}">{{$LEADER->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    @if ($MEM->leader_id != 0)
+                                        <div class="form-group">
+                                            <label for="leader_id">指派領導(不填則照舊)</label>
+                                            <select class="form-control" id="leader_id" name="leader_id">
+                                                @foreach ($LEADERS as $LEADER)
+                                                <option <?php if($MEM->leader_id == $LEADER->id) echo "selected"?> value="{{$LEADER->id}}">{{$LEADER->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
                                     
                                 </div>
                                 <!-- /.card-body -->

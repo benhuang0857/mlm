@@ -50,6 +50,8 @@ Route::get('/admin/order-history/{id}','AdminController@showHistoryOrdersDetail'
 //下線訂單
 Route::get('/admin/order-history-member','AdminController@showYourMemberOrders');
 Route::post('/admin/order-history/{id}/update','AdminController@updateOrdersStatus');
+Route::post('/admin/order-history/{id}/cancel','AdminController@cancelOrders');
+Route::post('/admin/order-history/{id}/delete','AdminController@deleteOrders');
 
 //升級
 Route::post('/admin/levelup','AdminController@levelUp');
