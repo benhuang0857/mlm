@@ -19,6 +19,9 @@
     <!-- orgchart css -->
     <link rel="stylesheet" href="{{ asset('css/jquery.orgchart.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -231,6 +234,8 @@
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
     <!-- orgchart js -->
     <script src="{{ asset('js/jquery.orgchart.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('select2/js/select2.full.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 </body>
 </html>

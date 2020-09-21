@@ -196,12 +196,11 @@
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                 </div>
                             </div>
-                            
 
                             <div class="form-group">
                                 <div class="col-md-12">
                                 <label for="leader_id">指派領導<span style="color:red">*</span></label>
-                                <select class="form-control" id="leader_id" name="leader_id" required>
+                                <select class="select2bs4 form-control" id="leader_id" name="leader_id" required>
                                     <?php
                                         use App\Models\User;
                                         $USERS = User::all();
@@ -236,7 +235,6 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src='{{ asset('dist/js/select2.min.js') }}'></script>
     <script type="text/javascript">
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -251,13 +249,21 @@
         $("#avatar").change(function(){
             readURL(this);
         });
-
-        $("#leader_id").select2({
-            selectOnClose: true
-        });
         
         var randomstring = Math.random().toString(36).slice(-8);
         $('#password').val(randomstring);
         $('#password-confirm').val(randomstring);
+    </script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('#leader_id').select2()
+        
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+    
+        })
     </script>
 @endsection
