@@ -47,6 +47,61 @@
                                         </div>
                                         <img src="/storage/images/avatar/{{$MEM->image}}" id="AvatarImage_tag" class="img elevation-2" style="max-width:120px" />
                                     </div>
+                                    <?php 
+                                        $objs = json_decode($LEVEL,JSON_UNESCAPED_UNICODE);
+                                    ?>
+                                    @if (!empty($objs))
+                                    @foreach ($objs as $key => $value)
+                                        <div class="form-group">
+                                            <label for="{{$key}}">{{$key}}<span style="color:red">*</span></label>
+                                            <select class="form-control" id="{{$key}}" name="{{$key}}" required>
+                                                @if ($value == "尊榮級顧問")
+                                                <option selected value="尊榮級顧問">尊榮級顧問</option>
+                                                <option value="黃金級顧問">黃金級顧問</option>
+                                                <option value="白金級顧問">白金級顧問</option>
+                                                <option value="一星級顧問">一星級顧問</option>
+                                                <option value="二星區顧問">二星區顧問</option>
+                                                <option value="三星總經銷">三星總經銷</option>
+                                                @elseif($value == "黃金級顧問")
+                                                <option value="尊榮級顧問">尊榮級顧問</option>
+                                                <option selected value="黃金級顧問">黃金級顧問</option>
+                                                <option value="白金級顧問">白金級顧問</option>
+                                                <option value="一星級顧問">一星級顧問</option>
+                                                <option value="二星區顧問">二星區顧問</option>
+                                                <option value="三星總經銷">三星總經銷</option>
+                                                @elseif($value == "白金級顧問")
+                                                <option value="尊榮級顧問">尊榮級顧問</option>
+                                                <option value="黃金級顧問">黃金級顧問</option>
+                                                <option selected value="白金級顧問">白金級顧問</option>
+                                                <option value="一星級顧問">一星級顧問</option>
+                                                <option value="二星區顧問">二星區顧問</option>
+                                                <option value="三星總經銷">三星總經銷</option>
+                                                @elseif($value == "一星級顧問")
+                                                <option value="尊榮級顧問">尊榮級顧問</option>
+                                                <option value="黃金級顧問">黃金級顧問</option>
+                                                <option value="白金級顧問">白金級顧問</option>
+                                                <option selected value="一星級顧問">一星級顧問</option>
+                                                <option value="二星區顧問">二星區顧問</option>
+                                                <option value="三星總經銷">三星總經銷</option>
+                                                @elseif($value == "二星區顧問")
+                                                <option value="尊榮級顧問">尊榮級顧問</option>
+                                                <option value="黃金級顧問">黃金級顧問</option>
+                                                <option value="白金級顧問">白金級顧問</option>
+                                                <option value="一星級顧問">一星級顧問</option>
+                                                <option selected value="二星區顧問">二星區顧問</option>
+                                                <option value="三星總經銷">三星總經銷</option>
+                                                @elseif($value == "三星總經銷")
+                                                <option value="尊榮級顧問">尊榮級顧問</option>
+                                                <option value="黃金級顧問">黃金級顧問</option>
+                                                <option value="白金級顧問">白金級顧問</option>
+                                                <option value="一星級顧問">一星級顧問</option>
+                                                <option value="二星區顧問">二星區顧問</option>
+                                                <option selected value="三星總經銷">三星總經銷</option>
+                                                @endif
+                                            </select>
+                                        </div>
+                                    @endforeach
+                                    @endif
                                     <div class="form-group">
                                         <label for="email">會員Email<span style="color:red">*</span></label>
                                         <input type="email" class="form-control" id="email" name="email" value="{{$MEM->email}}" required>
@@ -59,15 +114,6 @@
                                         <label for="address">會員地址<span style="color:red">*</span></label>
                                         <input type="text" class="form-control" id="address" name="address" value="{{$MEM->address}}" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="fb_account">會員臉書帳號</label>
-                                        <input type="text" class="form-control" id="fb_account" name="fb_account" value="{{$MEM->fb_account}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ig_account">會員IG帳號</label>
-                                        <input type="text" class="form-control" id="ig_account" name="ig_account" value="{{$MEM->ig_account}}">
-                                    </div>
-
                                     <div class="form-group">
                                         <label for="milage">里程數<span style="color:red">*</span></label>
                                         <input type="number" class="form-control" id="milage" name="milage" value="{{$MEM->milage}}" required>

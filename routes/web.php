@@ -31,6 +31,10 @@ Route::get('/admin/product/{id}/edit','ProductController@edit')->name('admin');
 Route::post('/admin/product/{id}/update','ProductController@update')->name('admin');
 Route::delete('/admin/product/{id}/delete','ProductController@destroy')->name('admin');
 
+//商品分類
+Route::get('/admin/product/category', 'CategoryController@index');
+Route::post('/admin/product/category/store', 'CategoryController@store');
+
 //購買頁面
 Route::get('/admin/shop/index','ShopController@index')->name('admin');
 

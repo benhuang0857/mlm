@@ -73,13 +73,9 @@
                                     <div class="form-group">
                                         <label for="Category">產品分類</label>
                                         <select class="form-control" id="Category" name="Category" required>
-                                            @if ($PRODUCT->category == "美妝")
-                                            <option selected value="美妝">美妝</option>
-                                            <option value="保健">保健</option>
-                                            @else
-                                            <option value="美妝">美妝</option>
-                                            <option selected value="保健">保健</option>
-                                            @endif
+                                            @foreach ($CATEGORY as $category)
+                                            <option <?php if($PRODUCT->category == $category->name)echo 'selected';?> value="{{$category->name}}">{{$category->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

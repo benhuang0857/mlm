@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Category;
 use Session;
 
 class ProductController extends Controller
@@ -39,7 +40,14 @@ class ProductController extends Controller
     {
         //商品新增頁面
         $user = auth()->user();
-        return view("back.product.create")->with('USER', $user);
+        $category = Category::all();
+
+        $data = [
+            'USER' => $user,
+            'CATEGORY' => $category,
+        ];
+
+        return view("back.product.create")->with($data);
     }
 
     /**
@@ -113,10 +121,12 @@ class ProductController extends Controller
         //顯示該商品
         $user = auth()->user();
         $product = Product::find($id);
+        $category = Category::all();
 
         $data = [
             'USER' => $user,
-            'PRODUCT' => $product
+            'PRODUCT' => $product,
+            'CATEGORY' => $category,
         ];
         
         return view('back.product.edit')->with($data);

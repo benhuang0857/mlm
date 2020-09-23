@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Category;
 use App\Mail\LevelUp;
 use Illuminate\Support\Facades\Mail;
 use Auth;
@@ -34,139 +35,18 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $cat01 = 0;
-        $cat02 = 0;
-
-        $orders = Auth::user()->orders->where('status','完成訂購')->where('pay',1);
-        $orders->transform(function($order, $key){
-            $order->cart = unserialize($order->cart);
-            return $order;
-        });
-
-        //根據等級去設定達成目標
-        if (Auth::user()->levelcat01 == "F")
-        {
-            Session::put('cat01NextLevelnum', 10);
-        }
-        if (Auth::user()->levelcat01 == "E")
-        {
-            Session::put('cat01NextLevelnum', 40);
-        }
-        if (Auth::user()->levelcat01 == "D")
-        {
-            Session::put('cat01NextLevelnum', 120);
-        }
-        if (Auth::user()->levelcat01 == "C")
-        {
-            Session::put('cat01NextLevelnum', 320);
-        }
-        if (Auth::user()->levelcat01 == "B")
-        {
-            Session::put('cat01NextLevelnum', 780);
-        }
-        if (Auth::user()->levelcat01 == "A")
-        {
-            Session::put('cat01NextLevelnum', 2220);
-        }
-
-        //根據等級去設定達成目標
-        if (Auth::user()->levelcat02 == "F")
-        {
-            Session::put('cat02NextLevelnum', 10);
-        }
-        if (Auth::user()->levelcat02 == "E")
-        {
-            Session::put('cat02NextLevelnum', 40);
-        }
-        if (Auth::user()->levelcat02 == "D")
-        {
-            Session::put('cat02NextLevelnum', 120);
-        }
-        if (Auth::user()->levelcat02 == "C")
-        {
-            Session::put('cat02NextLevelnum', 320);
-        }
-        if (Auth::user()->levelcat02 == "B")
-        {
-            Session::put('cat02NextLevelnum', 780);
-        }
-        if (Auth::user()->levelcat02 == "A")
-        {
-            Session::put('cat02NextLevelnum', 2220);
-        }
-
-        //算出$cat01 $cat02數量
-        $arrForName = array();
-        $arrForQty = array();
-        $arrForCat = array();
-        $result = array();
-
-        foreach ($orders as $order)
-        {
-            foreach ($order->cart->items as $item)
-            {
-                if (empty($arrForName) || !in_array($item['item']['name'], $arrForName))
-                {
-                    array_push($arrForName, $item['item']['name']);
-                    array_push($arrForQty, $item['qty']);
-                }
-                else if(in_array($item['item']['name'], $arrForName))
-                {
-                    $key = array_search($item['item']['name'], $arrForName);//找到商品在陣列中的位置
-                    $arrForQty[$key] += $item['qty'];
-                }
-                array_push($arrForCat, $item['item']['category']);
-            }
-        }
-
-        foreach ($arrForName as $id => $key)
-        {
-            $result[$key] = array(
-                'name' => $arrForName[$id],
-                'qty' => $arrForQty[$id],
-                'category' => $arrForCat[$id],
-            );
-        }
-
-        foreach ($result as $r)
-        {
-            if ($r['category'] == '美妝')
-            {
-                $cat01 = max($cat01, $r['qty']);
-                Session::put('cat01', $cat01);
-            }
-            else if ($r['category'] == '保健')
-            {
-                $cat02 = max($cat02, $r['qty']);
-                Session::put('cat02', $cat02);
-            }
-        }
-
         $uid = Auth::user()->id;
-        $member_orders = Order::where('leader_id', $uid)->where('status', '已通知店家')->get();
-        $my_member = User::where('leader_id', $uid)->get();
-
-        $sum = 0;
-        foreach ($orders as $order)
-        {
-            foreach ($order->cart->items as $item)
-            {
-                $sum += $item['qty'];
-            }
-        }
-
-        $this->sumBox = $sum;
         $users = User::where('id', $uid)->get();
         $tree = $this->treeView($users);
 
+        $levelArray = Auth::user()->level;
+
         $data = [
             'USER' => Auth::user(),
-            'ORDERS' => $orders,
-            'MEM' => $my_member,
-            'MEMORDER' => $member_orders,
-            'BOXNUM' => $this->sumBox,
-            'OUTPUTS' => $this->coutMem
+            'OUTPUTS' => $this->coutMem,
+            'LEVEL' => $levelArray,
         ];
+
         return view('back.admin')->with($data);
     }
 
@@ -369,13 +249,16 @@ class AdminController extends Controller
     //顯示線下會員資料
     public function ShowYourMembersInfo($id)
     {
-        $member = User::where('id',$id)->first();
+        $member = User::where('id', $id)->first();
         $leaders = User::where('id', '!=', $id)->get();
+
+        $levelArray = $member->level;
 
         $data = [
             'MEM' => $member,
             'USER' => Auth::user(),
-            'LEADERS' => $leaders
+            'LEADERS' => $leaders,
+            'LEVEL' => $levelArray,
         ];
         return view('back.member.member-edit')->with($data);
     }
@@ -383,7 +266,7 @@ class AdminController extends Controller
     //更新線下會員資料
     public function UpdateYourMembersInfo($id, Request $request)
     {
-        $user = User::find($id);
+        $user = User::where('id', $id)->first();
 
         if(request()->hasFile('AvatarImage'))
         {
@@ -405,10 +288,28 @@ class AdminController extends Controller
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
         $user->address = $request->input('address');
-        $user->fb_account = $request->input('fb_account');
-        $user->ig_account = $request->input('ig_account');
         $user->role = $request->input('role');
         $user->milage = $request->input('milage');
+
+        $categories = Category::all();
+        $mergeArray = array();
+
+        foreach($categories as $category)
+        {
+            $data = $request->input("$category->name");
+            $jsonArray = array( "$category->name" => "$data");
+
+            if($mergeArray != NULL)
+            {
+                $mergeArray = array_merge($jsonArray, $mergeArray);
+            }
+            else
+            {
+                $mergeArray = $jsonArray; 
+            }   
+        }
+        $user->level = json_encode($mergeArray,JSON_UNESCAPED_UNICODE);
+
         if(!empty($request->input('password')))
         {
             $user->password = bcrypt($request->input('password'));
@@ -439,157 +340,5 @@ class AdminController extends Controller
             $member->leader_id = $link_leader_id;
             $member->save();
         }
-    }
-
-    //顯示歷史訂單
-    public function getHistoryOrders()
-    {
-        $orders = Auth::user()->orders;
-        $orders->transform(function($order, $key){
-            $order->cart = unserialize($order->cart);
-            return $order;
-        });
-
-        $data = [
-            'USER' => Auth::user(),
-            'ORDERS' => $orders
-        ];
-
-        return view('back.shop.order-history')->with($data);
-    }
-
-    //顯示歷史訂單細項
-    public function showHistoryOrdersDetail($id)
-    {
-        $order = Order::where('id', $id)->first();
-        $order->cart = unserialize($order->cart);
-        //return response()->json($order->cart);
-        $data = [
-            'ORDER' => $order,
-            'USER' => Auth::user(),
-            'CART' => $order->cart,
-            'TOTALPRICE' => $order->totalprice,
-            'STATUS' => $order->status
-        ];
-
-        return view('back.shop.order-history-detail')->with($data);
-    }
-
-    //顯示下線訂單
-    public function showYourMemberOrders()
-    {
-        $uid = Auth::user()->id;
-        $orders = Order::where('leader_id', $uid)->get();
-        //dd($orders);
-        $data = [
-            'USER' => Auth::user(),
-            'ORDERS' => $orders
-        ];
-
-        return view('back.shop.order-history-members')->with($data);
-    }
-
-    //更新下線訂單狀態
-    public function updateOrdersStatus(Request $request, $id)
-    {
-        $order = Order::find($id);
-        $order->address = $request->input('inputAdress');
-        $order->name = $request->input('inputName');
-        $order->phone = $request->input('inputPhone');
-        $order->email = $request->input('inputEmail');
-        $order->status = $request->input('inputStatus');
-        $order->pay = $request->input('inputPay');
-
-        $order->save();
-        return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
-    }
-
-    //取消訂單
-    public function cancelOrders($id)
-    {
-        $order = Order::find($id);
-        $order->status = '取消訂單';
-
-        $order->save();
-        //return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
-    }
-
-    //刪除訂單(其實是隱藏)
-    public function deleteOrders($id)
-    {
-        $order = Order::find($id);
-        $order->status = '刪除訂單';
-
-        $order->save();
-        //return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
-    }
-
-    //升級
-    public function levelUp()
-    {
-        
-        $user = Auth::user();
-
-        $params = [
-            'name' => $user->name,
-            'phone' => $user->phone,
-            'email' => $user->email,
-            'levelcat01' => $user->levelcat01,
-            'levelcat02' => $user->levelcat02,
-        ];
-
-        $cat01 = Session::get('cat01');
-        $cat02 = Session::get('cat02');
-
-        $user->levelcat01 = 'F';
-        $user->levelcat02 = 'F';
-
-        if ($cat01 >=10 && $cat01<40)
-        {
-            $user->levelcat01 = 'E';
-        }
-        if ($cat01 >=40 && $cat01<120)
-        {
-            $user->levelcat01 = 'D';
-        }
-        if ($cat01 >=120 && $cat01<320)
-        {
-            $user->levelcat01 = 'C';
-        }
-        if ($cat01 >=320 && $cat01<780)
-        {
-            $user->levelcat01 = 'B';
-        }
-        if ($cat01 >=780 && $cat01<2220)
-        {
-            $user->levelcat01 = 'A';
-        }
-        
-        if ($cat02 >=10 && $cat02<40)
-        {
-            $user->levelcat02 = 'E';
-        }
-        if ($cat02 >=40 && $cat02<120)
-        {
-            $user->levelcat02 = 'D';
-        }
-        if ($cat02 >=120 && $cat02<320)
-        {
-            $user->levelcat02 = 'C';
-        }
-        if ($cat02 >=320 && $cat02<780)
-        {
-            $user->levelcat02 = 'B';
-        }
-        if ($cat02 >=780 && $cat02<2220)
-        {
-            $user->levelcat02 = 'A';
-        }
-        $user->update();
-
-        Mail::to('benhuang810406@gmail.com')->send(new LevelUp($params));
-
-        return redirect('/admin')->with('SUCCESS', '晉升成功');
-        
     }
 }

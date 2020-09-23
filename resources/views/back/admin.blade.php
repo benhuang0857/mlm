@@ -84,20 +84,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                            <p class="text-success text-xl">
-                            <i class="icon ion-compose"></i>
-                            </p>
-                            <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                @if (count($MEMORDER) > 0)
-                                    <i class="icon ion-alert text-danger"></i>
-                                @endif
-                                {{count($MEMORDER)}} 件
-                            </span>
-                            <span class="text-muted">未處裡訂單</span>
-                            </p>
-                        </div>
                         <!-- /.d-flex -->
                         <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                             <p class="text-warning text-xl">
@@ -105,159 +91,18 @@
                             </p>
                             <p class="d-flex flex-column text-right">
                             <span class="font-weight-bold">
-                                <?php 
-                                    if($USER->levelcat01 == 'F')
-                                    {
-                                        echo '<i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat01 == 'E')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat01 == 'D')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat01 == 'C')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat01 == 'B')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat01 == 'A')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
+                                <span class="text-muted">
+                                <?php
+                                $objs = json_decode($LEVEL,JSON_UNESCAPED_UNICODE);
+                                
+                                foreach ($objs as $key => $value) {
+                                    echo $key.":".$value."</br>";
+                                }
                                 ?>
-                            </span>
-                            <span class="text-muted">美妝等級—
-                                <?php 
-                                    if($USER->levelcat01 == 'F')
-                                    {
-                                        echo '尊榮級顧問';
-                                    }
-                                    if($USER->levelcat01 == 'E')
-                                    {
-                                        echo '黃金級顧問';
-                                    }
-                                    if($USER->levelcat01 == 'D')
-                                    {
-                                        echo '白金級顧問';
-                                    }
-                                    if($USER->levelcat01 == 'C')
-                                    {
-                                        echo '一星級經銷';
-                                    }
-                                    if($USER->levelcat01 == 'B')
-                                    {
-                                        echo '二星級經銷';
-                                    }
-                                    if($USER->levelcat01 == 'A')
-                                    {
-                                        echo '三星級經銷';
-                                    }
-                                ?>
+                                </span>
                             </span>
                             </p>
                         </div>
-                        <!-- /.d-flex -->
-                        <!-- /.d-flex -->
-                        <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                            <p class="text-warning text-xl">
-                            <i class="icon ion-ribbon-b"></i>
-                            </p>
-                            <p class="d-flex flex-column text-right">
-                            <span class="font-weight-bold">
-                                <?php 
-                                    if($USER->levelcat02 == 'F')
-                                    {
-                                        echo '<i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat02 == 'E')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat02 == 'D')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat02 == 'C')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat02 == 'B')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                    if($USER->levelcat02 == 'A')
-                                    {
-                                        echo '<i class="icon ion-star text-warning">
-                                            </i><i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>
-                                            <i class="icon ion-star text-warning"></i>';
-                                    }
-                                ?>
-                            </span>
-                            <span class="text-muted">保健等級—
-                                <?php 
-                                    if($USER->levelcat02 == 'F')
-                                    {
-                                        echo '尊榮級顧問';
-                                    }
-                                    if($USER->levelcat02 == 'E')
-                                    {
-                                        echo '黃金級顧問';
-                                    }
-                                    if($USER->levelcat02 == 'D')
-                                    {
-                                        echo '白金級顧問';
-                                    }
-                                    if($USER->levelcat02 == 'C')
-                                    {
-                                        echo '一星級經銷';
-                                    }
-                                    if($USER->levelcat02 == 'B')
-                                    {
-                                        echo '二星級經銷';
-                                    }
-                                    if($USER->levelcat02 == 'A')
-                                    {
-                                        echo '三星級經銷';
-                                    }
-                                ?>
-                            </span>
-                            </p>
-                        </div>
-                        <!-- /.d-flex -->
                         <div class="d-flex justify-content-between align-items-center mb-0">
                             <p class="text-danger text-xl">
                             <i class="ion ion-ios-people-outline"></i>
@@ -271,53 +116,6 @@
                         </div>
                         <!-- /.d-flex -->
                         </div>
-                    </div>
-
-                    <div class="card card-default ">
-                        <div class="card-header ui-sortable-handle">
-                            <h3 class="card-title">
-                                <i class="icon ion-ribbon-b text-warning text-xl"></i>
-                                升級進度
-                            </h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-block btn-default" data-card-widget="collapse">
-                                  <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="progress-group">
-                                美妝升級進度
-                                <span class="float-right"><b>{{Session::get('cat01')}}</b>/{{Session::get('cat01NextLevelnum')}}</span>
-                                <div class="progress progress-sm">
-                                    <?php
-                                        $p = Session::get('cat01')/Session::get('cat01NextLevelnum')*100;
-                                        $style = 'style=width:'.$p.'%'
-                                    ?>
-                                    <div class="progress-bar bg-warning" {{$style}}></div>
-                                </div>
-                            </div>
-
-                            <div class="progress-group">
-                                保健升級進度
-                                <span class="float-right"><b>{{Session::get('cat02')}}</b>/{{Session::get('cat02NextLevelnum')}}</span>
-                                <div class="progress progress-sm">
-                                    <?php
-                                        $p = Session::get('cat02')/Session::get('cat02NextLevelnum')*100;
-                                        $style = 'style=width:'.$p.'%'
-                                    ?>
-                                    <div class="progress-bar bg-warning" {{$style}}></div>
-                                </div>
-                            </div>
-                            <a href="#" id="KK" class="btn btn-primary" style="margin-bottom:5px;display: block;" onclick="callAjax()">測試晉升動畫</a>
-                            @if (Session::get('cat01')>=Session::get('cat01NextLevelnum') || Session::get('cat02')>=Session::get('cat02NextLevelnum'))
-                                <a href="#" class="btn btn-primary" style="margin-bottom:5px;display: block;" onclick="callAjax()">晉升</a>
-                            @else
-                                <a href="#" class="btn btn-primary disabled" style="margin-bottom:5px;display: block;" onclick="callAjax()">晉升</a>
-                            @endif
-                        </div>
-                        <!-- /.card-body -->
                     </div>
                 </section>
             </div>

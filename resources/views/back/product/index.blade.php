@@ -18,6 +18,7 @@
         <!-- Main content -->
         <div class="content">
             <a class="btn btn-info" style="margin-bottom:5px" href="/admin/product/create"><i class="fas fa-plus"></i>創建商品</a>
+            <a class="btn btn-info" style="margin-bottom:5px" href="/admin/product/category"><i class="fas fa-plus"></i>創建商品分類</a>
             <div class="row">
                 <div class="col-lg">
                     <div class="card">

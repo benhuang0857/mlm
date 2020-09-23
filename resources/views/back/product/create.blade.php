@@ -77,8 +77,9 @@
                                     <div class="form-group">
                                         <label for="Category">產品分類</label>
                                         <select class="form-control" id="Category" name="Category" required>
-                                            <option value="美妝">美妝</option>
-                                            <option value="保健">保健</option>
+                                            @foreach ($CATEGORY as $category)
+                                            <option value="{{$category->name}}">{{$category->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

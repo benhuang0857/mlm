@@ -109,34 +109,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('fb_account') ? ' has-error' : '' }}">
-                                <label for="fb_account" class="col-md-4 control-label">臉書帳號</label>
-
-                                <div class="col-md-12">
-                                    <input id="fb_account" type="text" class="form-control" name="fb_account" value="{{ old('fb_account') }}" autofocus>
-
-                                    @if ($errors->has('fb_account'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('fb_account') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('ig_account') ? ' has-error' : '' }}">
-                                <label for="ig_account" class="col-md-4 control-label">IG帳號</label>
-
-                                <div class="col-md-12">
-                                    <input id="ig_account" type="text" class="form-control" name="ig_account" value="{{ old('ig_account') }}" autofocus>
-
-                                    @if ($errors->has('ig_account'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('ig_account') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
                             <div class="form-group{{ $errors->has('authorization_code') ? ' has-error' : '' }}">
                                 <label for="authorization_code" class="col-md-4 control-label">授權碼<span style="color:red">*</span></label>
 
