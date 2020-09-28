@@ -30,6 +30,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>產品分類名稱</th>
+                                    <th>動作</th>
                                 </tr>
                                 </thead>
                                 <tbody id="dynamic-row">
@@ -37,6 +38,12 @@
                                     <tr>
                                     <th scope="row">#</th>
                                     <td>{{$category->name}}</td>
+                                    <td>
+                                        <form role="form" action="/admin/product/category/delete/{{$category->id}}" method="POST" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                                            <button type="submit" class="btn btn-danger">刪除</button>
+                                        </form>
+                                    </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

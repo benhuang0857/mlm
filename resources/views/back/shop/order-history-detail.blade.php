@@ -5,60 +5,109 @@
     <div class="content-wrapper">
         <div class="card">
             <div class="card-header border-transparent">
-              <h3 class="card-title">歷史訂單</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+              <div class="invoice p-3 mb-3">
+                <!-- title row -->
+                <div class="row">
+                  <div class="col-12">
+                    <h4>
+                      <i class="fa fa-shopping-bag"></i> 魔后訂單
+                    </h4>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- info row -->
+                <div class="row invoice-info">
+                  <div class="col-sm-4 invoice-col">
+                    寄件人
+                    <address>
+                      <strong>姓名：{{$LEADER->name}}</strong><br>
+                      寄件位置：{{$LEADER->address}}<br>
+                      電話: {{$LEADER->phone}}<br>
+                      Email: {{$LEADER->email}}
+                    </address>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 invoice-col">
+                    收件人
+                    <address>
+                      <strong>姓名：{{$ORDER->name}}</strong><br>
+                      收件位置：{{$ORDER->address}}<br>
+                      電話: {{$ORDER->phone}}<br>
+                      Email: {{$ORDER->email}}
+                    </address>
+                  </div>
+                </div>
+                <!-- /.row -->
+  
+                <!-- Table row -->
+                <div class="row">
+                  <div class="col-12 table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th>編號</th>
+                        <th>商品名稱</th>
+                        <th>數量</th>
+                        <th>價格</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <?php $i=1;?>
+                        @foreach ($CART->items as $item)
+                        <tr>
+                            <td>{{$i++}}</td>
+                            <td>{{$item['item']['name']}}</td>
+                            <td>{{$item['qty']}}</td>
+                            <td>${{$item['price']}}</td>
+                        </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+  
+                <div class="row">
+                  <!-- accepted payments column -->
+                  <div class="col-6">
+                    <p class="lead">付款方式:</p>
+                    <img src="{{ asset('images/GGG.jpg') }}">
+  
+                    <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                      貨到付款或是面交，請收到訂購單時，在跟您的用戶進行聯絡。
+                    </p>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-6">
+                    <p class="lead">成立時間: {{$ORDER->created_at}}</p>
+  
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody><tr>
+                          <th style="width:50%">總計:</th>
+                          <td>${{$TOTALPRICE}}</td>
+                        </tr>
+                        <tr>
+                          <th>稅金 (0%)</th>
+                          <td>$0</td>
+                        </tr>
+                        <tr>
+                          <th>運費:</th>
+                          <td>$0</td>
+                        </tr>
+                        <tr>
+                          <th>價格:</th>
+                          <td>${{$TOTALPRICE}}</td>
+                        </tr>
+                      </tbody></table>
+                    </div>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
               </div>
             </div>
-            <!-- /.card-header -->
-            <div class="card-body p-0" style="display: block;">
-              <div class="table-responsive">
-                <table class="table m-0">
-                    <thead>
-                    <tr>
-                    <th>#</th>
-                    <th>商品名稱</th>
-                    <th>數量</th>
-                    <th>單價</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php $i=1;?>
-                    @foreach ($CART->items as $item)
-                    <tr>
-                        <td>{{$i++}}</td>
-                        <td>{{$item['item']['name']}}</td>
-                        <td>{{$item['qty']}}</td>
-                        <td>{{$item['price']}}</td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-              </div>
-              <!-- /.table-responsive -->
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer clearfix" style="display: block;">
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <strong>訂購資訊：{{$ORDER->name}}</strong>
-                </div>
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <strong>訂購人電話：{{$ORDER->phone}}</strong>
-                </div>
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <strong>收件位置：{{$ORDER->address}}</strong>
-                </div>
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <strong>訂單狀態：{{$STATUS}}</strong>
-                </div>
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <strong>訂單價格：{{$TOTALPRICE}}</strong>
-                </div>
-            </div>
-            <!-- /.card-footer -->
         </div>
         @if ($ORDER->leader_id == auth()->user()->id)
         <!-- Main content -->

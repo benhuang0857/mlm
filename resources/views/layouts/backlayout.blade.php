@@ -6,57 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel Back') }}</title>
 
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('css/fontawesome-free/css/all.min.css') }}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <!-- orgchart css -->
-    <link rel="stylesheet" href="{{ asset('css/jquery.orgchart.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <style>        
-        div#left {
-            font-size:small;
-            position:fixed;
-            left:0;
-            top:0;
-        }
-        
-        div#content {
-            position         : relative;
-            left             : 300px;
-        }
-        
-        div.text {
-            padding          : 10px;
-        }
-        
-        div.orgChart a {
-            color            : black;
-            text-decoration  : none;
-        }
-        
-        div.orgChart a:hover {
-            color            : black;
-            text-decoration  : underline;
-        }
-    </style>
-    <script>
-        $(function() {
-            $("#organisation").orgChart({container: $("#main")});
-        });
-    </script>
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -67,12 +43,6 @@
             <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
             </li>
             </ul>
 
@@ -95,96 +65,146 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="/" class="brand-link">
-            <img src="{{asset('images/logo.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                style="opacity: .8">
-            <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
+            <a href="/admin" class="brand-link">
+                <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">魔后後台</span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                <img src="/storage/images/avatar/{{Auth::user()->image}}" class="img-circle elevation-2" alt="User Image">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                    <img src="/storage/images/avatar/{{Auth::user()->image}}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                    <a href="#" class="d-block">{{Auth::user()->name}}</a>
+                    </div>
                 </div>
-                <div class="info">
-                <a href="#" class="d-block">{{Auth::user()->name}}</a>
-                </div>
-            </div>
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-                    with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                    <p>
-                        控制台
-                        <i class="right fas fa-angle-left"></i>
-                    </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="/admin" class="nav-link active">
-                        <i class="fa fa-user-circle nav-icon"></i>
-                        <p>個人資料</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin/product/index" class="nav-link active">
-                        <i class="fa fa-user-circle nav-icon"></i>
-                        <p>商品</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin/members" class="nav-link active">
-                        <i class="fa fa-users nav-icon"></i>
-                        <p>您的下線會員</p>
-                        </a>
-                    </li>
-                    @if(Auth::user()->role == '管理員' || Auth::user()->role == '最高權限管理員')
-                    <li class="nav-item">
-                        <a href="/admin/allmembers" class="nav-link active">
-                        <i class="fa fa-users nav-icon"></i>
-                        <p>所有會員</p>
-                        </a>
-                    </li>
-                    @endif
-                    @if(Auth::user()->role == '管理員' || Auth::user()->role == '最高權限管理員')
-                    <li class="nav-item">
-                        <a href="/register" class="nav-link active">
-                        <i class="fa fa-address-book nav-icon"></i>
-                        <p>建立會員</p>
-                        </a>
-                    </li>
-                    @endif
-                    @if(Auth::user()->role != '最高權限管理員')
-                    <li class="nav-item">
-                        <a href="/admin/contract" class="nav-link active">
-                        <i class="fa fa-bookmark nav-icon"></i>
-                        <p>合約書</p>
-                        </a>
-                    </li>
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('logout') }}" class="nav-link"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>登出</p>
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
-                    </li>
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                            with font-awesome or any other icon font library -->
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                控制台
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/admin" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>個人資訊</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/members" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>您的用戶管理</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/admin/allmembers" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>所有用戶</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/register" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>建立用戶</p>
+                                </a>
+                            </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="nav-icon nav-icon fa fa-shopping-bag"></i>
+                                <p>
+                                    商品
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/shop/index" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>購買商品</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/product/index" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>設定商品</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/product/category" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>設定商品類別</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="nav-icon nav-icon fa fa-database"></i>
+                                <p>
+                                    訂單管理
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/order-history" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>我的訂單</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/admin/order-history-member" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>您的用戶訂單</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                            <i class="nav-icon nav-icon fa fa-coffee"></i>
+                                <p>
+                                    登出程式
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        確定登出
+                                    </a>
+        
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        
                     </ul>
-                </li>
-                </ul>
-            </nav>
+                </nav>
             <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
@@ -202,16 +222,44 @@
             <strong>Copyright &copy; 2019-2025 <a href="#">BEN</a>.</strong> All rights reserved.
         </footer>
     </div>
+    
     <!-- jQuery -->
-    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('js/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-    <!-- orgchart js -->
-    <script src="{{ asset('js/jquery.orgchart.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- ChartJS -->
+    <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('plugins/sparklines/sparkline.js') }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ asset('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+    <script src="{{ asset('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+    <!-- daterangepicker -->
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- Summernote -->
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- Select2 -->
-    <script src="{{ asset('select2/js/select2.full.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+
+
 </body>
 </html>

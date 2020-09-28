@@ -58,15 +58,6 @@
                                         <input type="text" class="form-control" id="address" name="address" value="{{$USER->address}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="fb_account">臉書帳號</label>
-                                        <input type="text" class="form-control" id="fb_account" name="fb_account" value="{{$USER->fb_account}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ig_account">IG帳號</label>
-                                        <input type="text" class="form-control" id="ig_account" name="ig_account" value="{{$USER->ig_account}}">
-                                    </div>
-
-                                    <div class="form-group">
                                         <label for="password" class="col-md-4 control-label">新密碼</label>
                                         <input id="password" type="password" class="form-control" name="password">
                                     </div>

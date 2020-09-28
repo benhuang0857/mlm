@@ -22,54 +22,40 @@ class Cart
 
     public function add($item, $id, $num)
     {
-        $levelcat01 = auth()->user()->levelcat01;
-        $levelcat02 = auth()->user()->levelcat02;
-        $price;
-        if ($item->category == '美妝')
-        {
-            switch ($levelcat01) {
-                case "A":
-                    $price = $item->a_price;
-                    break;
-                case "B":
-                    $price = $item->b_price;
-                    break;
-                case "C":
-                    $price = $item->c_price;
-                    break;
-                case "D":
-                    $price = $item->d_price;
-                    break;
-                case "E":
-                    $price = $item->e_price;
-                    break;
-                case "F":
-                    $price = $item->f_price;
-                    break;
+        $level = auth()->user()->level;
+        $itemCategory = $item->category;
+        $resultLevel = '';
+        
+        $objs = json_decode($level, JSON_UNESCAPED_UNICODE);
+                                
+        foreach ($objs as $key => $value) {
+            if($key == $itemCategory)
+            {
+                $resultLevel = $value;
             }
         }
-        elseif($item->category == '保健')
-        {
-            switch ($levelcat02) {
-                case "A":
-                    $price = $item->a_price;
-                    break;
-                case "B":
-                    $price = $item->b_price;
-                    break;
-                case "C":
-                    $price = $item->c_price;
-                    break;
-                case "D":
-                    $price = $item->d_price;
-                    break;
-                case "E":
-                    $price = $item->e_price;
-                    break;
-                case "F":
-                    $price = $item->f_price;
-                    break;
-            }
+
+        $price;
+
+        switch ($resultLevel) {
+            case "三星總經銷":
+                $price = $item->a_price;
+                break;
+            case "二星區顧問":
+                $price = $item->b_price;
+                break;
+            case "一星級顧問":
+                $price = $item->c_price;
+                break;
+            case "白金級顧問":
+                $price = $item->d_price;
+                break;
+            case "黃金級顧問":
+                $price = $item->e_price;
+                break;
+            case "尊榮級顧問":
+                $price = $item->f_price;
+                break;
         }
 
         $storeItem = ['qty' => 0, 'price' => $price, 'item' => $item];

@@ -29,24 +29,27 @@
                 </thead>
                 <tbody>
                 @foreach ($ORDERS as $ORDER)
-                    <tr>
-                    <th scope="row"><a href="/admin/order-history/{{$ORDER->id}}">ORD{{$ORDER->user_id}}{{$ORDER->id}}</a></th>
-                    <td>{{$ORDER->name}}</td>
-                    <td>
-                        <span   <?php 
-                                if ($ORDER->status == '完成訂購')
-                                    echo "class='badge badge-success'";
-                                elseif ($ORDER->status == '取消訂單')
-                                    echo "class='badge badge-danger'";
-                                elseif ($ORDER->status == '已通知店家')
-                                    echo "class='badge badge-info'";
-                                ?>  
-                                style="padding:10px">{{$ORDER->status}}
-                            </span>
-                    </td>
-                    <td>{{$ORDER->totalprice}}</td>
-                    <td>{{date('Y-m-d', strtotime($ORDER->created_at))}}</td>
-                    </tr>
+                    @if ($ORDER->status != '刪除訂單')
+                        <tr>
+                            <th scope="row"><a href="/admin/order-history/{{$ORDER->id}}">ORD{{$ORDER->user_id}}{{$ORDER->id}}</a></th>
+                            <td>{{$ORDER->name}}</td>
+                            <td>
+                                <span   <?php 
+                                        if ($ORDER->status == '完成訂購')
+                                            echo "class='badge badge-success'";
+                                        elseif ($ORDER->status == '取消訂單')
+                                            echo "class='badge badge-danger'";
+                                        elseif ($ORDER->status == '已通知店家')
+                                            echo "class='badge badge-info'";
+                                        ?>  
+                                        style="padding:10px">{{$ORDER->status}}
+                                    </span>
+                            </td>
+                            <td>{{$ORDER->totalprice}}</td>
+                            <td>{{date('Y-m-d', strtotime($ORDER->created_at))}}</td>
+                            <td><a class="btn btn-primary" href="/admin/order-history/{{$ORDER->id}}">編輯</a></td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
                 </table>

@@ -86,8 +86,6 @@ class AdminController extends Controller
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
         $user->address = $request->input('address');
-        $user->fb_account = $request->input('fb_account');
-        $user->ig_account = $request->input('ig_account');
         if(!empty($request->input('password')))
         {
             $user->password = bcrypt($request->input('password'));

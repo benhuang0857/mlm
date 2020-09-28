@@ -31,13 +31,13 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="ProductName">商品名稱</label>
-                                        <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="商品名稱">
+                                        <input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="商品名稱" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="ProductImage">商品照片</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="ProductImage" name="ProductImage">
+                                                <input type="file" class="custom-file-input" id="ProductImage" name="ProductImage" required>
                                                 <label class="custom-file-label" for="ProductImage">Choose file</label>
                                             </div>
                                             <div class="input-group-append">
@@ -48,35 +48,35 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="ProductDescription">描述</label>
-                                        <textarea type="text" class="form-control" id="ProductDescription" name="ProductDescription"></textarea>
+                                        <textarea type="text" class="form-control" id="ProductDescription" name="ProductDescription" required></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="Product_A_Price">三星總經銷價格</label>
-                                        <input type="text" class="form-control" id="Product_A_Price" name="Product_A_Price">
+                                        <input type="text" class="form-control" id="Product_A_Price" name="Product_A_Price" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Product_B_Price">二星區顧問價格</label>
-                                        <input type="text" class="form-control" id="Product_B_Price" name="Product_B_Price">
+                                        <input type="text" class="form-control" id="Product_B_Price" name="Product_B_Price" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Product_C_Price">一星級顧問價格</label>
-                                        <input type="text" class="form-control" id="Product_C_Price" name="Product_C_Price">
+                                        <input type="text" class="form-control" id="Product_C_Price" name="Product_C_Price" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Product_D_Price">白金級顧問價格</label>
-                                        <input type="text" class="form-control" id="Product_D_Price" name="Product_D_Price">
+                                        <input type="text" class="form-control" id="Product_D_Price" name="Product_D_Price" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Product_E_Price">黃金級顧問價格</label>
-                                        <input type="text" class="form-control" id="Product_E_Price" name="Product_E_Price">
+                                        <input type="text" class="form-control" id="Product_E_Price" name="Product_E_Price" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Product_F_Price">尊榮級顧問價格</label>
-                                        <input type="text" class="form-control" id="Product_F_Price" name="Product_F_Price">
+                                        <input type="text" class="form-control" id="Product_F_Price" name="Product_F_Price" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Category">產品分類</label>
-                                        <select class="form-control" id="Category" name="Category" required>
+                                        <select class="form-control" id="Category" name="Category" required required>
                                             @foreach ($CATEGORY as $category)
                                             <option value="{{$category->name}}">{{$category->name}}</option>
                                             @endforeach

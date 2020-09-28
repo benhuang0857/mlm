@@ -40,4 +40,27 @@ class CategoryController extends Controller
 
         return redirect('/admin/product/category');
     }
+
+    public function destroy($id)
+    {
+        $category = Category::where('id', $id)->first();
+        $catName = $category->name;
+
+        $users = User::all();
+
+        foreach($users as $user)
+        {
+            $levelArray = json_decode($user->level, true);
+            //dd($catName);
+
+            unset($levelArray[$catName]);
+            $levelArray = json_encode($levelArray,JSON_UNESCAPED_UNICODE);
+            $user->level = $levelArray;
+            $user->save();
+        }
+
+        $category->delete();
+        return redirect('/admin/product/category');
+
+    }
 }

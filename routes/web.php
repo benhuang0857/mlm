@@ -34,6 +34,7 @@ Route::delete('/admin/product/{id}/delete','ProductController@destroy')->name('a
 //商品分類
 Route::get('/admin/product/category', 'CategoryController@index');
 Route::post('/admin/product/category/store', 'CategoryController@store');
+Route::post('/admin/product/category/delete/{id}', 'CategoryController@destroy');
 
 //購買頁面
 Route::get('/admin/shop/index','ShopController@index')->name('admin');
@@ -48,14 +49,14 @@ Route::get('/admin/shop/checkout','CartController@getCheckout');
 Route::post('/admin/shop/checkout/submit','CartController@postCheckout');
 
 //自己的訂單
-Route::get('/admin/order-history','AdminController@getHistoryOrders');
-Route::get('/admin/order-history/{id}','AdminController@showHistoryOrdersDetail');
+Route::get('/admin/order-history','OrderController@getHistoryOrders');
+Route::get('/admin/order-history/{id}','OrderController@showHistoryOrdersDetail');
 
 //下線訂單
-Route::get('/admin/order-history-member','AdminController@showYourMemberOrders');
-Route::post('/admin/order-history/{id}/update','AdminController@updateOrdersStatus');
-Route::post('/admin/order-history/{id}/cancel','AdminController@cancelOrders');
-Route::post('/admin/order-history/{id}/delete','AdminController@deleteOrders');
+Route::get('/admin/order-history-member','OrderController@showYourMemberOrders');
+Route::post('/admin/order-history/{id}/update','OrderController@updateOrdersStatus');
+Route::post('/admin/order-history/{id}/cancel','OrderController@cancelOrders');
+Route::post('/admin/order-history/{id}/delete','OrderController@deleteOrders');
 
 //升級
 Route::post('/admin/levelup','AdminController@levelUp');

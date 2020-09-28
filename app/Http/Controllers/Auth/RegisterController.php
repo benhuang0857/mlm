@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Mail\GeneratePassword;
 use Illuminate\Support\Facades\Mail;
 
+use App\Models\Category;
+
 class RegisterController extends Controller
 {
     /*
@@ -79,6 +81,22 @@ class RegisterController extends Controller
 
         $pwd = $data['password'];
 
+        $categories = Category::all();
+        $userLevelArray = array();
+
+        foreach($categories as $category)
+        {
+            $jsonArray = array("$category->name" => "尊榮級顧問",);
+            if($userLevelArray != NULL)
+            {
+                $userLevelArray = array_merge($jsonArray, $userLevelArray);
+            }
+            else
+            {
+                $userLevelArray = $jsonArray;
+            }
+        }
+
         $user = new User;
         $user->name = $data['name'];
         $user->nickname = $data['nickname'];
@@ -87,14 +105,12 @@ class RegisterController extends Controller
         $user->phone = $data['phone'];
         $user->line_id = $data['line_id'];
         $user->address = $data['address'];
-        $user->fb_account = $data['fb_account'];
-        $user->ig_account = $data['ig_account'];
         $user->leader_id = intval($data['leader_id']);
         $user->image = $imageNametoStore;
         $user->authorization_code = $data['authorization_code'];
-        $user->levelcat01 = 'F';
-        $user->levelcat02 = 'F';
         $user->milage = 0;
+        
+        $user->level = json_encode($userLevelArray,JSON_UNESCAPED_UNICODE);
         $user->remarks = $data['remarks'];
         $user->role = $data['role'];            
         $user->save();
