@@ -37,14 +37,55 @@ class AdminController extends Controller
     {
         $uid = Auth::user()->id;
         $users = User::where('id', $uid)->get();
+        $categories = Category::all();
         $tree = $this->treeView($users);
 
         $levelArray = Auth::user()->level;
+
+        $arrForName = array();
+        $arrForQty = array();
+        $arrForCat = array();
+        $result = array();
+
+        $orders = Auth::user()->orders->where('pay',1);
+        $orders->transform(function($order, $key){
+            $order->cart = unserialize($order->cart);
+            return $order;
+        });
+        foreach ($orders as $order)
+        {
+            foreach ($order->cart->items as $item)
+            {
+                
+                if (empty($arrForName) || !in_array($item['item']['name'], $arrForName))
+                {
+                    array_push($arrForName, $item['item']['name']);
+                    array_push($arrForQty, $item['qty']);
+                }
+                else if(in_array($item['item']['name'], $arrForName))
+                {
+                    $key = array_search($item['item']['name'], $arrForName);//找到商品在陣列中的位置
+                    $arrForQty[$key] += $item['qty'];
+                }
+                array_push($arrForCat, $item['item']['category']);
+            }
+        }
+
+        foreach ($arrForName as $id => $key)
+        {
+            $result[$key] = array(
+                'name' => $arrForName[$id],
+                'qty' => $arrForQty[$id],
+                'category' => $arrForCat[$id],
+            );
+        }
 
         $data = [
             'USER' => Auth::user(),
             'OUTPUTS' => $this->coutMem,
             'LEVEL' => $levelArray,
+            'RESULT' => $result,
+            'CATEGORIES' => $categories,
         ];
 
         return view('back.admin')->with($data);
@@ -338,5 +379,32 @@ class AdminController extends Controller
             $member->leader_id = $link_leader_id;
             $member->save();
         }
+    }
+
+    public function levelUp($key, $value)
+    {
+        $catName = $key;
+        $level = $value;
+
+        $nextLevel;
+
+        if($level == '尊榮級顧問')$nextLevel = '黃金級顧問';
+        if($level == '黃金級顧問')$nextLevel = '白金級顧問';
+        if($level == '白金級顧問')$nextLevel = '一星級顧問';
+        if($level == '一星級顧問')$nextLevel = '二星級顧問';
+        if($level == '二星級顧問')$nextLevel = '三星級經銷';
+        if($level == '三星級經銷')$nextLevel = '三星級經銷';
+
+        $user = Auth::user();
+        $levelArray = json_decode($user->level, true);
+        $levelArray[$catName] = $nextLevel;
+
+        $user->level = json_encode($levelArray,JSON_UNESCAPED_UNICODE);
+
+        $user->save();
+
+        //Mail::to('benhuang810406@gmail.com')->send(new LevelUp($params));
+
+        return redirect('/admin')->with('SUCCESS', '晉升成功');
     }
 }

@@ -59,7 +59,7 @@ Route::post('/admin/order-history/{id}/cancel','OrderController@cancelOrders');
 Route::post('/admin/order-history/{id}/delete','OrderController@deleteOrders');
 
 //升級
-Route::post('/admin/levelup','AdminController@levelUp');
+Route::post('/admin/levelup/{key}/{value}','AdminController@levelUp');
 
 //顯示線下會員
 Route::get('/admin/members','AdminController@ShowMembersPage');

@@ -56,7 +56,31 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="CategoryName">分類名稱</label>
-                                        <input type="text" class="form-control" id="CategoryName" name="CategoryName" placeholder="商品名稱" required>
+                                        <input type="text" class="form-control" id="CategoryName" name="CategoryName" placeholder="名稱" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="a_level">三星級經銷達標數量</label>
+                                        <input type="number" class="form-control" id="a_level" name="a_level" placeholder="數量" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="b_level">二星級顧問達標數量</label>
+                                        <input type="number" class="form-control" id="b_level" name="b_level" placeholder="數量" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="c_level">一星級顧問達標數量</label>
+                                        <input type="number" class="form-control" id="c_level" name="c_level" placeholder="數量" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="d_level">白金級顧問達標數量</label>
+                                        <input type="number" class="form-control" id="d_level" name="d_level" placeholder="數量" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="e_level">黃金級顧問達標數量</label>
+                                        <input type="number" class="form-control" id="e_level" name="e_level" placeholder="數量" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="f_level">尊榮級顧問達標數量</label>
+                                        <input type="number" class="form-control" id="f_level" name="f_level" placeholder="數量" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

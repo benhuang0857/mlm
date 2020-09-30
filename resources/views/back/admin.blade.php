@@ -114,9 +114,104 @@
                             <span class="text-muted">線下會員人數</span>
                             </p>
                         </div>
-                        <!-- /.d-flex -->
                         </div>
                     </div>
+                    
+                </section>
+
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-5 connectedSortable ui-sortable">
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">等級信息</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-block btn-default" data-card-widget="collapse">
+                                  <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <?php
+                                $objs = json_decode($LEVEL,JSON_UNESCAPED_UNICODE);
+
+                                //$catNum = 0;
+                                $levelUpNum = 0;
+                            ?>
+                            @foreach ($objs as $key => $value)
+                                <?php $catNum = 0;?>
+                                @foreach ($RESULT as $r)
+                                
+                                    <?php
+                                    if ($r['category'] == $key)
+                                    {
+                                        $catNum = max($catNum, $r['qty']);
+                                    }
+                                    ?>
+                                    
+                                @endforeach
+                                @foreach ($CATEGORIES as $category)
+                                    <?php
+                                        $categoryName = $category->name;
+                                        if($key == $categoryName)
+                                        {
+                                            if($value == '三星級經銷')
+                                            {
+                                                $levelUpNum = $category->a_level;
+                                            }
+
+                                            if($value == '二星級顧問')
+                                            {
+                                                $levelUpNum = $category->b_level;
+                                            }
+
+                                            if($value == '一星級顧問')
+                                            {
+                                                $levelUpNum = $category->c_level;
+                                            }
+
+                                            if($value == '白金級顧問')
+                                            {
+                                                $levelUpNum = $category->d_level;
+                                            }
+
+                                            if($value == '黃金級顧問')
+                                            {
+                                                $levelUpNum = $category->e_level;
+                                            }
+
+                                            if($value == '尊榮級顧問')
+                                            {
+                                                $levelUpNum = $category->f_level;
+                                            }
+                                        }
+                                    ?>
+                                @endforeach
+                                <div class="progress-group">
+                                    <?php 
+                                        $style = ($catNum/$levelUpNum)*100;
+                                    ?>
+                                    {{$key}}等級：{{$value}}
+                                    <span class="float-right"><b>{{$catNum}}/{{$levelUpNum}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-warning" style=width:<?php echo $style?>%></div>
+                                    </div>
+                                </div>
+                                @if ($catNum >= $levelUpNum)
+                                <form id="levelUp" action="/admin/levelup/{{$key}}/{{$value}}" method="POST">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-outline-warning btn-block">晉升</button>
+                                </form>
+                                @else
+                                <form id="levelUp" action="/admin/levelup/{{$key}}/{{$value}}" method="POST">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-outline-warning btn-block disabled">晉升</button>
+                                </form>
+                                @endif
+                                
+                            @endforeach
+                        </div>
+                    </div>
+                    
                 </section>
             </div>
 
@@ -128,7 +223,7 @@
 <!-- /.content-wrapper -->
 
 <script type="text/javascript">
-    function callAjax() {
+    function BCC(key, value) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -137,8 +232,11 @@
 
         $.ajax({
             type: 'POST',
-            url: '/admin/levelup',
-
+            url: '/admin/levelup'
+            data: { 
+                value : value,
+                key : key,
+            },
             success:function(res){
                 $.get(this.href, function(html) {
                     html = '<div class="modal " style="opacity: 1;webkit-box-shadow:none !important; box-shadow:none !important;background:none !important; color:#FFF !important;text-align: center !important; width:100%; height:50%; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">'

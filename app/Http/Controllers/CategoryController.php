@@ -18,6 +18,12 @@ class CategoryController extends Controller
     {
         $category = new Category;
         $category->name = $req->input('CategoryName');
+        $category->a_level = $req->input('a_level');
+        $category->b_level = $req->input('b_level');
+        $category->c_level = $req->input('c_level');
+        $category->d_level = $req->input('d_level');
+        $category->e_level = $req->input('e_level');
+        $category->f_level = $req->input('f_level');
         $category->save();
 
         $users = User::all();

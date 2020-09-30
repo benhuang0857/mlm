@@ -136,11 +136,6 @@
                                             @endif
                                         </select>
                                     </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="password">會員新密碼(不填則照舊)</label>
-                                        <input id="password" type="password" class="form-control" name="password">
-                                    </div>
 
                                     @if ($MEM->leader_id != 0)
                                         <div class="form-group">
@@ -152,6 +147,11 @@
                                             </select>
                                         </div>
                                     @endif
+                                    
+                                    <div class="form-group">
+                                        <label for="password">會員新密碼(不填則照舊)</label>
+                                        <input id="password" type="password" class="form-control" name="password">
+                                    </div>
                                     
                                 </div>
                                 <!-- /.card-body -->
