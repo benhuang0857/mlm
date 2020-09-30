@@ -154,12 +154,12 @@
                                         $categoryName = $category->name;
                                         if($key == $categoryName)
                                         {
-                                            if($value == '三星級經銷')
+                                            if($value == '三星總經銷')
                                             {
                                                 $levelUpNum = $category->a_level;
                                             }
 
-                                            if($value == '二星級顧問')
+                                            if($value == '二星區顧問')
                                             {
                                                 $levelUpNum = $category->b_level;
                                             }
