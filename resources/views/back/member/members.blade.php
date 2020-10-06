@@ -89,22 +89,14 @@
         }        
     </style>
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="collapse-page segments-page">
         <div class="card">
-            <div class="card-header border-transparent">
-            <h3 class="card-title">您的下線會員</h3>
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                    </button>
-                </div>
-            </div>
             <!-- /.card-header -->
             <div class="card-body p-0" style="display: block; margin:auto;">
                 @if (!empty($LEADER))
                     <ul class="tree">
                         <div class="image">
-                            <img src="/storage/images/avatar/{{$LEADER->image}}" class="img-circle elevation-2" style="width:80px;height:80px" alt="User Image">
+                            <img src="{{url('/storage/images/avatar/'.$LEADER->image.'')}}" class="img-circle elevation-2" style="width:80px;height:80px" alt="User Image">
                         </div>
                         <p>直屬姓名：{{$LEADER->name}}<br>{{$LEADER->nickname}}</br></p>
                 @endif
@@ -112,6 +104,5 @@
             </div>
         </div>
     </div>
-    <!-- /.content-wrapper -->
 
 @endsection

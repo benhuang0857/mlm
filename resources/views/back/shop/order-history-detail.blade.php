@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="form-element segments-page">
         <div class="card">
             <div class="card-header border-transparent">
               <div class="invoice p-3 mb-3">
@@ -72,7 +72,7 @@
                   <!-- accepted payments column -->
                   <div class="col-6">
                     <p class="lead">付款方式:</p>
-                    <img src="{{ asset('images/GGG.jpg') }}">
+                    <img style="width:70px" src="{{ url('/storage/images/productimage/unnamed.jpg') }}">
   
                     <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                       貨到付款或是面交，請收到訂購單時，在跟您的用戶進行聯絡。
@@ -120,7 +120,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" method="POST" action="/admin/order-history/{{$ORDER->id}}/update">
+                        <form class="form-horizontal" method="POST" action="{{url('/admin/order-history/'.$ORDER->id.'/update')}}">
                             {{ csrf_field() }}
                             <div class="card-body">
                             <div class="form-group row">

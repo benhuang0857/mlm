@@ -2,71 +2,76 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                <h1 class="m-0 text-dark">購物車</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-
+    <div class="form-element segments-page">
         <!-- Main content -->
         <div class="content">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">品名</th>
-                                <th scope="col">數量</th>
-                                <th scope="col">價格</th>
-                                <th scope="col">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Session::has('cart'))
-                                @foreach ($PRODUCTS as $PRODUCT)
-                                    <tr>
-                                    <th scope="row">1</th>
-                                    <td>{{$PRODUCT['item']['name']}}</td>
-                                    <td>{{$PRODUCT['qty']}}</td>
-                                    <td>{{$PRODUCT['price']}}</td>
-                                    <td>
-                                        <a href="/admin/cart/delete/{{$PRODUCT['item']['id']}}" class="btn btn-danger" type="submit">刪除</a>
-                                    </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                <td>尚未添加任何品項</td>
-                                <td>X</td>
-                                <td>X</td>
-                                <td>X</td>
-                                <td>X</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
+            @if (Session::has('cart'))
+                <div class="container">
+                    <div class="cart b-shadow">
+                        @foreach ($PRODUCTS as $PRODUCT)
+                            <div class="cart-product">
+                                <a href="/admin/cart/delete/{{$PRODUCT['item']['id']}}"><i class="far fa-times-circle"></i></a>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="contents">
+                                            <img src="{{url('/storage/images/productimage/'.$PRODUCT['item']['image'].'')}}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 px-2">
+                                        <div class="contents">
+                                            <a href="">{{$PRODUCT['item']['name']}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="contents remove">
+                                            <a href=""><i class="fa fa-remove"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="contents">
+                                            <p>價格</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="contents">
+                                            <p class="price">${{$PRODUCT['price']}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="contents">
+                                            <p>數量</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 px-2">
+                                        <div class="contents">
+                                            <input type="number" value="{{$PRODUCT['qty']}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="total-pay b-shadow">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="contents">
+                                    <h5>總金額：</h5>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="contents content-right">
+                                    <h5>${{$TOTALPRICE}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{url('/admin/shop/checkout')}}" class="btn waves-effect button-full" type="submit">繼續結帳</a>
+                    </div>
                 </div>
-                <!-- /.col-md-6 -->
-            </div>
-            @if (isset($TOTALPRICE))
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <strong><h3>總金額：{{$TOTALPRICE}}</h3></strong>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-md-offset-3 col-sm-offset-3 text-right">
-                    <a href="/admin/shop/checkout" class="btn btn-success" type="submit">繼續結帳</a>
-                </div>
-            </div>
+            @else
+                <i class="fa-7x fa fa-shopping-cart" style="width: 100%;display: inline-block;text-align:center"></i>
+                <p style="font-size:15px;width: 100%;display: inline-block;text-align:center">購物車內尚無商品</p>
             @endif
             
         </div>

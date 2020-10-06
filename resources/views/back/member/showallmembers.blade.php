@@ -2,25 +2,10 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="table-page segments-page">
         <div class="card">
-            <div class="card-header border-transparent">
-            <h3 class="card-title">所有會員</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-                </button>
-            </div>
-            </div>
             <!-- /.card-header -->
             <div class="card-body p-0" style="display: block;">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">搜尋</span>
-                </div>
-                <input type="text" id="search-member" class="form-control" placeholder="搜尋..." aria-label="Username" aria-describedby="basic-addon1">
-            </div>
             <div class="table-responsive">
                 <table class="table m-0">
                 <thead>
@@ -42,7 +27,7 @@
                     <td>{{$OUTPUT->phone}}</td>
                     <td>{{$OUTPUT->milage}}</td>
                     <th>
-                        <a class="btn btn-primary" style="margin-bottom:5px;display: block;" href="/admin/members/{{$OUTPUT->id}}">編輯</a>
+                        <a class="btn btn-primary" style="margin-bottom:5px;display: block;" href="{{url('/admin/members/'.$OUTPUT->id.'')}}">編輯</a>
                         <a href="#" class="btn btn-danger" style="margin-bottom:5px;display: block;" onclick="callAjax({{$OUTPUT->id}})">刪除</a>
                     </th>
                     </tr>

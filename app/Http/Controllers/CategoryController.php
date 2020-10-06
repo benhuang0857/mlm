@@ -24,11 +24,19 @@ class CategoryController extends Controller
         $category->d_level = $req->input('d_level');
         $category->e_level = $req->input('e_level');
         $category->f_level = $req->input('f_level');
+
+        $category->a_name = $req->input('a_name');
+        $category->b_name = $req->input('b_name');
+        $category->c_name = $req->input('c_name');
+        $category->d_name = $req->input('d_name');
+        $category->e_name = $req->input('e_name');
+        $category->f_name = $req->input('f_name');
+
         $category->save();
 
         $users = User::all();
 
-        $levelArray = array("$category->name" => "尊榮級顧問",);
+        $levelArray = array("$category->name" => "F",);
 
         foreach($users as $user)
         {

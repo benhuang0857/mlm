@@ -2,19 +2,8 @@
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="form-element segments-page">
         <div class="card">
-            <div class="card-header border-transparent">
-            <h3 class="card-title">您的歷史訂單</h3>
-
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-                </button>
-            </div>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body p-0" style="display: block;">
             <div class="table-responsive">
                 <table class="table m-0">
                 <thead>
@@ -31,7 +20,7 @@
                 @foreach ($ORDERS as $ORDER)
                     <tr>
                     @if ($ORDER->status != '刪除訂單')
-                    <th scope="row"><a href="/admin/order-history/{{$ORDER->id}}">ORD{{$ORDER->user_id}}{{$ORDER->id}}</a></th>
+                    <th scope="row"><a href="{{url('/admin/order-history/'.$ORDER->id.'')}}">ORD{{$ORDER->user_id}}{{$ORDER->id}}</a></th>
                     <td>{{$ORDER->name}}</td>
                     <td><span   <?php 
                                 if ($ORDER->status == '完成訂購')
@@ -49,13 +38,13 @@
                             if ($ORDER->status == '已通知店家')
                             {
                                 ?>
-                                    <a class="btn btn-primary" href="#" onclick="cancelOrder({{$ORDER->id}})">取消訂單</a>
+                                    <a class="btn btn-primary" href="#" onclick="cancelOrder({{$ORDER->id}})">取消</a>
                                 <?php
                             }
                             else
                             {
                                 ?>
-                                    <a class="btn btn-danger" href="#" onclick="deleteOrder({{$ORDER->id}})">刪除訂單</a>
+                                    <a class="btn btn-danger" href="#" onclick="deleteOrder({{$ORDER->id}})">刪除</a>
                                 <?php
                             }                            
                         ?>
@@ -65,8 +54,6 @@
                 @endforeach
                 </tbody>
                 </table>
-            </div>
-            <!-- /.table-responsive -->
             </div>
         </div>
     </div>

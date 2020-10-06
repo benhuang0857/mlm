@@ -147,7 +147,7 @@ class AdminController extends Controller
         $leader = User::where('id', $user->leader_id)->first();
 
         $pdf = PDF::loadView('back.contract', array('user' => $user, 'leader' => $leader));
-        return $pdf->stream('contract.pdf'); 
+        return $pdf->stream('contract.pdf');
     }
     //尋訪
     function treeView($Me)
@@ -354,7 +354,7 @@ class AdminController extends Controller
             $user->password = bcrypt($request->input('password'));
         }
         $user->save();
-        return redirect('/admin')->cookie('MSG', '會員更新成功', 0.05);
+        return redirect('/admin');
     }
 
     //刪除會員
@@ -365,7 +365,7 @@ class AdminController extends Controller
         $this->SetMemberLeaderId($id, $leader_id);
         $member->delete();
         
-        return redirect('/admin')->cookie('MSG', '刪除成功', 0.05);
+        return redirect('/admin');
     }
 
     //刪除後自動設定領導ID
@@ -388,12 +388,12 @@ class AdminController extends Controller
 
         $nextLevel;
 
-        if($level == '尊榮級顧問')$nextLevel = '黃金級顧問';
-        if($level == '黃金級顧問')$nextLevel = '白金級顧問';
-        if($level == '白金級顧問')$nextLevel = '一星級顧問';
-        if($level == '一星級顧問')$nextLevel = '二星級顧問';
-        if($level == '二星級顧問')$nextLevel = '三星級經銷';
-        if($level == '三星級經銷')$nextLevel = '三星級經銷';
+        if($level == 'F')$nextLevel = 'E';
+        if($level == 'E')$nextLevel = 'D';
+        if($level == 'D')$nextLevel = 'C';
+        if($level == 'C')$nextLevel = 'B';
+        if($level == 'B')$nextLevel = 'A';
+        if($level == 'A')$nextLevel = 'A';
 
         $user = Auth::user();
         $levelArray = json_decode($user->level, true);
@@ -405,6 +405,6 @@ class AdminController extends Controller
 
         //Mail::to('benhuang810406@gmail.com')->send(new LevelUp($params));
 
-        return redirect('/admin')->with('SUCCESS', '晉升成功');
+        return redirect('/admin');
     }
 }

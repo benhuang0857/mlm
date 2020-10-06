@@ -65,7 +65,7 @@ class OrderController extends Controller
         $order->pay = $request->input('inputPay');
 
         $order->save();
-        return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
+        return redirect('/admin/order-history-member');
     }
 
     public function cancelOrders($id)
@@ -74,7 +74,7 @@ class OrderController extends Controller
         $order->status = '取消訂單';
         $order->save();
 
-        return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
+        return redirect('/admin/order-history-member');
     }
 
     public function deleteOrders($id)
@@ -92,7 +92,7 @@ class OrderController extends Controller
         }
         
 
-        return redirect('/admin/order-history-member')->with('SUCCESS', '更新訂單成功');
+        return redirect('/admin/order-history-member');
     }
 
 }

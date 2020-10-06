@@ -86,7 +86,7 @@ class RegisterController extends Controller
 
         foreach($categories as $category)
         {
-            $jsonArray = array("$category->name" => "尊榮級顧問",);
+            $jsonArray = array("$category->name" => "F",);
             if($userLevelArray != NULL)
             {
                 $userLevelArray = array_merge($jsonArray, $userLevelArray);
@@ -124,6 +124,6 @@ class RegisterController extends Controller
 
         Mail::to($user->email)->send(new GeneratePassword($params));
 
-        return redirect('/admin')->cookie('MSG', '會員創建成功', 0.05);
+        return redirect('/admin');
     }
 }

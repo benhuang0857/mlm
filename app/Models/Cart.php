@@ -38,22 +38,22 @@ class Cart
         $price;
 
         switch ($resultLevel) {
-            case "三星總經銷":
+            case "A":
                 $price = $item->a_price;
                 break;
-            case "二星區顧問":
+            case "B":
                 $price = $item->b_price;
                 break;
-            case "一星級顧問":
+            case "C":
                 $price = $item->c_price;
                 break;
-            case "白金級顧問":
+            case "D":
                 $price = $item->d_price;
                 break;
-            case "黃金級顧問":
+            case "E":
                 $price = $item->e_price;
                 break;
-            case "尊榮級顧問":
+            case "F":
                 $price = $item->f_price;
                 break;
         }

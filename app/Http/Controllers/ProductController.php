@@ -168,7 +168,7 @@ class ProductController extends Controller
         $product->category = $request->input('Category');
 
         $product->save();
-        return redirect('/admin/product/index')->with('success', '更新成功');
+        return redirect('/admin/product/index');
     }
 
     /**

@@ -46,7 +46,7 @@ class CartController extends Controller
 
         if (empty($cart->items))
         {
-            return redirect('/admin')->with('SUCCESS', '購物車是空的');
+            return redirect('/admin');
         }
 
         $data = [
@@ -113,10 +113,10 @@ class CartController extends Controller
 
             $order->save();
         } catch (\Exception $e) {
-            return redirect()->back()->with('ERROR', $e->getMessage());
+            return redirect()->back();
         }
 
         Session::forget('cart');
-        return redirect('/admin')->cookie('MSG', '訂單提交成功', 0.05);
+        return redirect('/admin');
     }
 }
