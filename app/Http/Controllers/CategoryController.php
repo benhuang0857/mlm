@@ -14,6 +14,12 @@ class CategoryController extends Controller
         return view("back.product.category")->with('CATEGORY', $category);
     }
 
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        return view('back.product.editcategory')->with('CATEGORY', $category);
+    }
+
     public function store(Request $req)
     {
         $category = new Category;
@@ -52,6 +58,28 @@ class CategoryController extends Controller
             $user->save();
         }
 
+        return redirect('/admin/product/category');
+    }
+
+    public function update(Request $req, $id)
+    {
+        $category = Category::find($id);
+        $category->name = $req->input('CategoryName');
+        $category->a_level = $req->input('a_level');
+        $category->b_level = $req->input('b_level');
+        $category->c_level = $req->input('c_level');
+        $category->d_level = $req->input('d_level');
+        $category->e_level = $req->input('e_level');
+        $category->f_level = $req->input('f_level');
+
+        $category->a_name = $req->input('a_name');
+        $category->b_name = $req->input('b_name');
+        $category->c_name = $req->input('c_name');
+        $category->d_name = $req->input('d_name');
+        $category->e_name = $req->input('e_name');
+        $category->f_name = $req->input('f_name');
+
+        $category->save();
         return redirect('/admin/product/category');
     }
 

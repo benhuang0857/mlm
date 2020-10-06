@@ -10,7 +10,7 @@
                     <div class="cart b-shadow">
                         @foreach ($PRODUCTS as $PRODUCT)
                             <div class="cart-product">
-                                <a href="/admin/cart/delete/{{$PRODUCT['item']['id']}}"><i class="far fa-times-circle"></i></a>
+                                <a style="float:right" href="/admin/cart/delete/{{$PRODUCT['item']['id']}}"><i class="fa fa-window-close fa-2x"></i></a>
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="contents">
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-6 px-2">
                                         <div class="contents">
-                                            <input type="number" value="{{$PRODUCT['qty']}}">
+                                            <input type="number" value="{{$PRODUCT['qty']}}" readonly>
                                         </div>
                                     </div>
                                 </div>

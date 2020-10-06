@@ -38,13 +38,13 @@
                             if ($ORDER->status == '已通知店家')
                             {
                                 ?>
-                                    <a class="btn btn-primary" href="#" onclick="cancelOrder({{$ORDER->id}})">取消</a>
+                                    <a style="width:80px" class="btn btn-primary btn-sm" href="#" onclick="cancelOrder({{$ORDER->id}})">取消</a>
                                 <?php
                             }
                             else
                             {
                                 ?>
-                                    <a class="btn btn-danger" href="#" onclick="deleteOrder({{$ORDER->id}})">刪除</a>
+                                    <a style="width:80px" class="btn btn-danger btn-sm" href="#" onclick="deleteOrder({{$ORDER->id}})">刪除</a>
                                 <?php
                             }                            
                         ?>

@@ -34,11 +34,11 @@
                             {{$PRODUCT->a_price}}</br>{{$PRODUCT->b_price}}</br>{{$PRODUCT->c_price}}</br>{{$PRODUCT->d_price}}</br>{{$PRODUCT->e_price}}</br>{{$PRODUCT->f_price}}</br>
                         </td>
                         <td>
-                            <a class="btn btn-primary" style="margin-bottom:5px" href="{{url('/admin/product/'.$PRODUCT->id.'/edit')}}">編輯</a>
+                            <a class="btn btn-primary btn-sm" style="margin-bottom:5px; width:80px" href="{{url('/admin/product/'.$PRODUCT->id.'/edit')}}">編輯</a>
                             <form action="{{url('/admin/product/'.$PRODUCT->id.'/delete')}}" method="POST">
                                 {{csrf_field()}}
                                 {{method_field('DELETE')}}
-                                <button class="btn btn-danger" type="submit">刪除</button>
+                                <button style="width:80px" class="btn btn-danger btn-sm" type="submit">刪除</button>
                             </form>
                         </td>
                     </tr>

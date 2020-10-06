@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Post;
 use App\Models\Category;
 use App\Mail\LevelUp;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +17,6 @@ use PDF;
 
 class AdminController extends Controller
 {
-    private $sumBox = 0;
     private $coutMem = 0;
     /**
      * Create a new controller instance.
@@ -38,6 +38,7 @@ class AdminController extends Controller
         $uid = Auth::user()->id;
         $users = User::where('id', $uid)->get();
         $categories = Category::all();
+        $posts = Post::all();
         $tree = $this->treeView($users);
 
         $levelArray = Auth::user()->level;
@@ -86,6 +87,7 @@ class AdminController extends Controller
             'LEVEL' => $levelArray,
             'RESULT' => $result,
             'CATEGORIES' => $categories,
+            'POSTS' => $posts
         ];
 
         return view('back.admin')->with($data);

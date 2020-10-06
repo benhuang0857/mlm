@@ -20,17 +20,20 @@
                 </thead>
                 <tbody id="dynamic-row">
                 @foreach ($OUTPUTS as $OUTPUT)
+                    @if ($OUTPUT->id != 0)
                     <tr>
-                    <th scope="row">{{$OUTPUT->authorization_code}}</th>
-                    <td>{{$OUTPUT->name}}</td>
-                    <td>{{$OUTPUT->email}}</td>
-                    <td>{{$OUTPUT->phone}}</td>
-                    <td>{{$OUTPUT->milage}}</td>
-                    <th>
-                        <a class="btn btn-primary" style="margin-bottom:5px;display: block;" href="{{url('/admin/members/'.$OUTPUT->id.'')}}">編輯</a>
-                        <a href="#" class="btn btn-danger" style="margin-bottom:5px;display: block;" onclick="callAjax({{$OUTPUT->id}})">刪除</a>
-                    </th>
+                        <th scope="row">{{$OUTPUT->authorization_code}}</th>
+                        <td>{{$OUTPUT->name}}</td>
+                        <td>{{$OUTPUT->email}}</td>
+                        <td>{{$OUTPUT->phone}}</td>
+                        <td>{{$OUTPUT->milage}}</td>
+                        <th>
+                            <a class="btn btn-primary btn-sm" style="margin-bottom:5px; display:block; width:80px" href="{{url('/admin/members/'.$OUTPUT->id.'')}}">編輯</a>
+                            <a href="#" class="btn btn-danger btn-sm" style="margin-bottom:5px; display:block; width:80px" onclick="callAjax({{$OUTPUT->id}})">刪除</a>
+                        </th>
                     </tr>
+                    @endif
+                    
                 @endforeach
                 </tbody>
                 </table>

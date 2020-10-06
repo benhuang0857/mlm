@@ -26,9 +26,10 @@
                         <th scope="row">#</th>
                         <td>{{$category->name}}</td>
                         <td>
+                            <a class="btn btn-primary btn-sm" style="margin-bottom:5px; width:80px" href="{{url('/admin/product/category/edit/'.$category->id.'')}}">編輯</a>
                             <form role="form" action="{{url('/admin/product/category/delete/'.$category->id.'')}}" method="POST" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn-danger">刪除</button>
+                                <button type="submit" style="width:80px" class="btn btn-danger btn-sm">刪除</button>
                             </form>
                         </td>
                         </tr>

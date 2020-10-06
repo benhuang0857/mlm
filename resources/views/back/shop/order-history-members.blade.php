@@ -36,7 +36,7 @@
                             </td>
                             <td>{{$ORDER->totalprice}}</td>
                             <td>{{date('Y-m-d', strtotime($ORDER->created_at))}}</td>
-                            <td><a class="btn btn-primary" href="{{url('/admin/order-history/'.$ORDER->id.'')}}">編輯</a></td>
+                            <td><a style="width:80px" class="btn btn-primary btn-sm" href="{{url('/admin/order-history/'.$ORDER->id.'')}}">編輯</a></td>
                         </tr>
                     @endif
                 @endforeach

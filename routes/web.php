@@ -33,7 +33,9 @@ Route::delete('/admin/product/{id}/delete','ProductController@destroy')->name('a
 
 //商品分類
 Route::get('/admin/product/category', 'CategoryController@index');
+Route::get('/admin/product/category/edit/{id}', 'CategoryController@edit');
 Route::post('/admin/product/category/store', 'CategoryController@store');
+Route::post('/admin/product/category/edit/{id}/update', 'CategoryController@update');
 Route::post('/admin/product/category/delete/{id}', 'CategoryController@destroy');
 
 //購買頁面
@@ -70,3 +72,11 @@ Route::delete('/admin/members/{id}/delete','AdminController@DeleteYourMember');
 
 //搜尋會員
 Route::post('/admin/allmembers/search','AdminController@SearchMember');
+
+//文章
+Route::get('/admin/post','PostController@index');
+Route::get('/admin/post/create','PostController@create');
+Route::get('/admin/post/{id}/edit','PostController@edit');
+Route::post('/admin/post/{id}/edit/update','PostController@update');
+Route::post('/admin/post/create/store','PostController@store');
+Route::delete('/admin/post/{id}/delete','PostController@destroy');

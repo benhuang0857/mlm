@@ -36,7 +36,7 @@
 				<a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
 			</div>
 			<div class="content-center">
-				<a href="/admin"><h1>魔后美學</h1></a>
+				<a href="{{url('/admin')}}"><h1>魔后美學</h1></a>
 			</div>
 			<div class="content-right">
 				<a class="nav-link" href="{{url('/admin/shop/cart')}}">
@@ -63,31 +63,44 @@
 				<a href="{{url('/admin/members')}}"><i class="fa fa-users"></i>用戶管理</a>
 			</li>
 			<li>
-				<a href="{{url('/admin/allmembers')}}"><i class="fa fa-list"></i>所有用戶管理</a>
-			</li>
-			<li>
-				<a href="{{url('/register')}}"><i class="fa fa-user-plus"></i>建立用戶</a>
-			</li>
-			<li>
 				<a href="{{url('/admin/shop/index')}}"><i class="fa fa-shopping-cart"></i>商城</a>
 			</li>
-			<li>
-				<a href="{{url('/admin/product/index')}}"><i class="fa fa-home"></i>商品設定</a>
-			</li>
-			<li>
-				<a href="{{url('/admin/product/category')}}"><i class="fa fa-home"></i>商品類別</a>
-            </li>
             <li>
 				<a href="{{url('/admin/order-history')}}"><i class="fa fa-mobile"></i>購買紀錄</a>
             </li>
             <li>
 				<a href="{{url('/admin/order-history-member')}}"><i class="fa fa-rocket"></i>用戶訂單</a>
+			</li>
+			<li>
+				<a href="{{url('/admin/contract')}}"><i class="fas fa-book"></i>魔后合約</a>
+			</li>
+			
+			@if (Auth::user()->role == '管理員' || Auth::user()->role == '最高權限管理員')
+			<li>
+				<a href="{{url('/admin/post')}}"><i class="fa fa-list"></i>所有文章</a>
+			</li>
+			<li>
+				<a href="{{url('/admin/post/create')}}"><i class="far fa-clipboard"></i>建立文章</a>
+			</li>
+			<li>
+				<a href="{{url('/admin/allmembers')}}"><i class="fas fa-users"></i>所有用戶管理</a>
+			</li>
+			<li>
+				<a href="{{url('/register')}}"><i class="fa fa-user-plus"></i>建立用戶</a>
+			</li>
+			<li>
+				<a href="{{url('/admin/product/index')}}"><i class="fas fa-gift"></i>商品設定</a>
+			</li>
+			<li>
+				<a href="{{url('/admin/product/category')}}"><i class="fas fa-atom"></i>商品類別</a>
             </li>
+			@endif
+
             <li>
 				<a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                <i class="fa fa-rocket"></i>
+                                <i class="fas fa-sign-out-alt"></i>
                     確定登出
                     
                 </a>

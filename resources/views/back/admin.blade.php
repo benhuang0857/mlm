@@ -13,30 +13,16 @@
 <!-- slide -->
 <div class="slide">
     <div class="slide-show-home owl-carousel owl-theme">
+        @foreach ($POSTS as $POST)
         <div class="slide-content">
             <div class="mask"></div>
-            <img src="{{asset('mobile/images/slider-home1.jpg')}}" alt="">
+            <img src="{{url('/storage/images/postimage/'.$POST->image.'')}}" alt="">
             <div class="intro-caption">
-                <h2>Welcome to Eleco</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, quos?</p>
+                <h2>{{$POST->title}}</h2>
+                <p>{{$POST->body}}</p>
             </div>
         </div>
-        <div class="slide-content">
-            <div class="mask"></div>
-            <img src="{{asset('mobile/images/slider-home2.jpg')}}" alt="">
-            <div class="intro-caption">
-                <h2>Powerfull Design</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, quos?</p>
-            </div>
-        </div>
-        <div class="slide-content">
-            <div class="mask"></div>
-            <img src="{{asset('mobile/images/slider-home3.jpg')}}" alt="">
-            <div class="intro-caption">
-                <h2>Easy Customize</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, quos?</p>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
 <!-- end slide -->
@@ -65,7 +51,33 @@
                     $objs = json_decode($LEVEL,JSON_UNESCAPED_UNICODE);
                     
                     foreach ($objs as $key => $value) {
-                        echo $key.":".$value."</br>";
+                        echo $key.":";
+                        foreach ($CATEGORIES as $CATEGORIE) {
+                            if ($CATEGORIE->name == $key)
+                            {
+                                switch ($value) {
+                                    case 'A':
+                                        echo $CATEGORIE->a_name;
+                                        break;
+                                    case 'B':
+                                        echo $CATEGORIE->b_name;
+                                        break;
+                                    case 'C':
+                                        echo $CATEGORIE->c_name;
+                                        break;
+                                    case 'D':
+                                        echo $CATEGORIE->d_name;
+                                        break;
+                                    case 'E':
+                                        echo $CATEGORIE->e_name;
+                                        break;
+                                    default:
+                                        echo $CATEGORIE->f_name;
+                                        break;
+                                }
+                            }
+                        }
+                        echo '</br>';
                     }
                     ?>
                     </span>
@@ -118,8 +130,6 @@
         <div class="contact-contents b-shadow">  
             <?php
                 $objs = json_decode($LEVEL,JSON_UNESCAPED_UNICODE);
-
-                //$catNum = 0;
                 $levelUpNum = 0;
             ?>
             @foreach ($objs as $key => $value)
@@ -175,7 +185,34 @@
                     <?php 
                         $style = ($catNum/$levelUpNum)*100;
                     ?>
-                    {{$key}}等級：{{$value}}
+                    {{$key}}等級：
+                    <?php
+                        foreach ($CATEGORIES as $CATEGORIE) {
+                            if ($CATEGORIE->name == $key)
+                            {
+                                switch ($value) {
+                                    case 'A':
+                                        echo $CATEGORIE->a_name;
+                                        break;
+                                    case 'B':
+                                        echo $CATEGORIE->b_name;
+                                        break;
+                                    case 'C':
+                                        echo $CATEGORIE->c_name;
+                                        break;
+                                    case 'D':
+                                        echo $CATEGORIE->d_name;
+                                        break;
+                                    case 'E':
+                                        echo $CATEGORIE->e_name;
+                                        break;
+                                    default:
+                                        echo $CATEGORIE->f_name;
+                                        break;
+                                }
+                            }
+                        }
+                    ?>
                     <span class="float-right"><b>{{$catNum}}/{{$levelUpNum}}</span>
                     <div class="progress progress-sm">
                         <div class="progress-bar bg-warning" style=width:<?php echo $style?>%></div>
@@ -185,12 +222,7 @@
                 <form id="levelUp" action="{{url('/admin/levelup/'.$key.'/'.$value.'')}}" method="POST">
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-outline-warning btn-block">晉升</button>
-                </form>
-                @else
-                <form id="levelUp" action="{{url('/admin/levelup/'.$key.'/'.$value.'')}}" method="POST">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-outline-warning btn-block disabled">晉升</button>
-                </form>
+                </form>                
                 @endif
                 
             @endforeach
