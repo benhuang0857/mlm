@@ -10,7 +10,7 @@
                     <div class="cart b-shadow">
                         @foreach ($PRODUCTS as $PRODUCT)
                             <div class="cart-product">
-                                <a style="float:right" href="/admin/cart/delete/{{$PRODUCT['item']['id']}}"><i class="fa fa-window-close fa-2x"></i></a>
+                                <a style="float:right" href="{{url('/admin/cart/delete/'.$PRODUCT['item']['id'].'')}}"><i class="fa fa-window-close fa-2x"></i></a>
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="contents">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{url('/admin/shop/checkout')}}" class="btn waves-effect button-full" type="submit">繼續結帳</a>
+                        <a href="{{url('/admin/shop/checkout')}}" class="btn button-full" type="submit">繼續結帳</a>
                     </div>
                 </div>
             @else

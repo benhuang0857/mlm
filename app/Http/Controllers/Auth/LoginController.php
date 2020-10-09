@@ -45,6 +45,6 @@ class LoginController extends Controller
     {
         $this->doLogout($request);
 
-        return redirect('/');
+        return redirect('https://jkvq.com.tw/');
     }
 }

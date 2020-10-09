@@ -31,7 +31,7 @@ class PostController extends Controller
             $imageName = pathinfo($PostImage, PATHINFO_FILENAME);
             $extension = $request->file('PostImage')->getClientOriginalExtension();
             $imageNametoStore = $imageName.'_'.time().'.'.$extension;
-            $path = $request->file('PostImage')->storeAs('public/images/PostImage', $imageNametoStore);
+            $path = $request->file('PostImage')->storeAs('public/images/postimage', $imageNametoStore);
         }
 
         $post->title = $request->input('PostName');
@@ -61,8 +61,8 @@ class PostController extends Controller
             $imageName = pathinfo($PostImage, PATHINFO_FILENAME);
             $extension = $request->file('PostImage')->getClientOriginalExtension();
             $imageNametoStore = $imageName.'_'.time().'.'.$extension;
-            $path = $request->file('PostImage')->storeAs('public/images/PostImage', $imageNametoStore);
-            Storage::delete('public/images/PostImage/'.$post->image);
+            $path = $request->file('PostImage')->storeAs('public/images/postimage', $imageNametoStore);
+            Storage::delete('public/images/postimage/'.$post->image);
         }
 
         if($request->hasFile('PostImage')){
